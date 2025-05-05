@@ -39,7 +39,6 @@ public class MemberManager {
 
     }
 
-
      */
 
     static void addNewMember(Scanner scanner) {
@@ -118,12 +117,24 @@ public class MemberManager {
 
         }
 
+        proceed = false;
+
+        int paymentStatus = 0;
+
         while(!proceed) {
             System.out.println("Please choose a payment status.");
             System.out.println("1. Paid");
             System.out.println("2. Not paid");
 
-            int paymentStatus = scanner.nextInt();
+            try {
+
+                paymentStatus = scanner.nextInt();
+                scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+            }
 
             if (paymentStatus == 1) {
                 hasPaid = true;
@@ -372,6 +383,7 @@ public class MemberManager {
         }
 
         for(Member s : members) {
+
             if(s.getId() == ID) {
                 System.out.println(s.getName() + " was deleted.");
                 members.remove(s);
