@@ -2,6 +2,7 @@ package dev.pigeonboys.member;
 
 public class Member {
 
+    //2 min - Olga
     private String id;
     private String name;
     private int age;
