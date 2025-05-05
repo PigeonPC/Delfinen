@@ -49,7 +49,7 @@ public class Member {
         this.address = address;
     }
 
-    public boolean isHasPaid() {
+    public boolean getHasPaid() {
         return hasPaid;
     }
 
