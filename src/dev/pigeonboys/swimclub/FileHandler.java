@@ -34,7 +34,7 @@ public class FileHandler {
             String line;
             while((line = reader.readLine()) != null) {
                 String[] parts = line.split("|");
-                if(parts.length == 3) {
+                if(parts.length == 4) {
                     try {
                         int id = Integer.parseInt(parts[0]);
                         String name = parts[1];
