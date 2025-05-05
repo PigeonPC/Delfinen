@@ -1,4 +1,4 @@
-package PACKAGE_NAME.dev.pigeonboys.member;
+package dev.pigeonboys.member;
 
 public class Member {
 }
