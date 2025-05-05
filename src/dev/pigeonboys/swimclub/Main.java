@@ -1,4 +1,5 @@
-package src.dev.pigeonboys.swimclub;
+package dev.pigeonboys.swimclub;
 
 public class Main {
+
 }
