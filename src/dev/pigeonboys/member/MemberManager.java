@@ -22,8 +22,10 @@ public class MemberManager {
         int memberID = scanner.nextInt();
 
         for(Member s : members) {
-            if(memberID = s.getID()) {
+            if(memberID == s.getId()) {
                 System.out.println(s);
+                break;
+
             }
         }
 
@@ -45,7 +47,7 @@ public class MemberManager {
                 String newName = scanner.nextLine();
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setName(newName);
                     }
                 }
@@ -61,7 +63,7 @@ public class MemberManager {
                 int newAge = scanner.nextInt();
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setAge(newAge);
                     }
                 }
@@ -74,10 +76,10 @@ public class MemberManager {
 
                 System.out.println("What do you want want to change the member's address to?");
 
-                int newAddress = scanner.nextInt();
+                String newAddress = scanner.nextLine();
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setAddress(newAddress);
                     }
                 }
@@ -91,7 +93,7 @@ public class MemberManager {
                 System.out.println("What do you want want to change the member's payment status to?");
 
                 for(Member s : members) {
-                    if (memberID = s.getID()) {
+                    if (memberID == s.getId()) {
 
                         System.out.println(memberID + "'s payment status is currently set to " + s.getHasPaid());
 
@@ -130,7 +132,7 @@ public class MemberManager {
         int ID = scanner.nextInt();
 
         for(Member s : members) {
-            if(s.getID() == ID) {
+            if(s.getId() == ID) {
                 System.out.println(s.getName() + " was deleted.");
                 members.remove(s);
             }
