@@ -7,9 +7,9 @@ public class MemberManager {
 
     ArrayList<Member> members = new ArrayList<>();
 
-    void addNewMember(String name, int age, String address, String memberShipType, boolean hasPaid) {
+    void addNewMember(int ID, String name, int age, String address, boolean hasPaid) {
 
-        Member member = new Member(name, age, address, memberShipType, hasPaid);
+        Member member = new Member(ID, name, age, address, hasPaid);
 
         members.add(member);
 
