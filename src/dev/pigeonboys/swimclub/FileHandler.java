@@ -50,6 +50,7 @@ public class FileHandler {
                     }
                 }
             }
+            System.out.println("Successfully loaded " + loadedMembers.size() + " members");
         } catch(IOException e) {
             System.err.println("Error loading members from file" + e.getMessage());
         }
