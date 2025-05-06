@@ -59,11 +59,11 @@ public class Member {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Member \n");
-        sb.append("id: ").append(id).append("\n");
-        sb.append("name: ").append(name).append("\n");
-        sb.append("age: ").append(age).append("\n");
-        sb.append("address: ").append(address).append("\n");
+        sb.append("Member: \n");
+        sb.append("ID: ").append(id).append("\n");
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("Age: ").append(age).append("\n");
+        sb.append("Address: ").append(address).append("\n");
         sb.append("Has paid: ").append(hasPaid).append("\n");
         return sb.toString();
     }
