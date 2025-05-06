@@ -3,23 +3,25 @@ package dev.pigeonboys.member;
 public class Member {
 
     //2 min - Olga
-    private String id;
+    private int id;
     private String name;
     private int age;
     private String address;
+    private boolean hasPaid;
 
-    public Member(String id, String name, int age, String address){
+    public Member(int id, String name, int age, String address, boolean hasPaid){
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
+        this.hasPaid = hasPaid;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,5 +47,13 @@ public class Member {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public boolean getHasPaid() {
+        return hasPaid;
+    }
+
+    public void setHasPaid(boolean hasPaid) {
+        this.hasPaid = hasPaid;
     }
 }

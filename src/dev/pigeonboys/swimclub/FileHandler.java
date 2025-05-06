@@ -1,4 +1,4 @@
-package PACKAGE_NAME.dev.pigeonboys.swimclub;
+package dev.pigeonboys.swimclub;
 
 public class FileHandler {
 }
