@@ -1,12 +1,19 @@
 package dev.pigeonboys.member;
 
+import dev.pigeonboys.swimclub.FileHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MemberManager {
-
+    static FileHandler fileHandler;
     static List<Member> members = new ArrayList<>();
+
+    public MemberManager() {
+        fileHandler = new FileHandler();
+        members = fileHandler.loadMembers();
+    }
 
     /*
 
@@ -41,7 +48,7 @@ public class MemberManager {
 
      */
 
-    static void addNewMember(Scanner scanner) {
+    public static void addNewMember(Scanner scanner) {
 
         boolean proceed = false;
 
@@ -167,10 +174,11 @@ public class MemberManager {
         Member member = new Member(ID, name, age, address, hasPaid);
 
         members.add(member);
+        fileHandler.saveMember(member);
 
     }
 
-    static void editMember(Scanner scanner) {
+    public static void editMember(Scanner scanner) {
 
         boolean proceed = false;
 
@@ -391,7 +399,7 @@ public class MemberManager {
 
     }
 
-    static void deleteMember(Scanner scanner) {
+    public static void deleteMember(Scanner scanner) {
 
         boolean proceed = false;
 
