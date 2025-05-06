@@ -2,7 +2,7 @@ package dev.pigeonboys.member;
 
 public class Member {
 
-    //2 min - Olga
+    //15 min - Olga
     private int id;
     private String name;
     private int age;
@@ -55,5 +55,16 @@ public class Member {
 
     public void setHasPaid(boolean hasPaid) {
         this.hasPaid = hasPaid;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Member: \n");
+        sb.append("ID: ").append(id).append("\n");
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("Age: ").append(age).append("\n");
+        sb.append("Address: ").append(address).append("\n");
+        sb.append("Has paid: ").append(hasPaid).append("\n");
+        return sb.toString();
     }
 }
