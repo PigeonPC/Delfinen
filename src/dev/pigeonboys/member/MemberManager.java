@@ -15,6 +15,11 @@ public class MemberManager {
         members = fileHandler.loadMembers();
     }
 
+    public static List<Member> getMembers() {
+        return members;
+    }
+
+
     public static void addNewMember(Scanner scanner) {
 
         boolean proceed = false;

@@ -1,5 +1,7 @@
 package dev.pigeonboys.member;
 
+import java.util.List;
+
 public class Member {
 
     //15 min - Olga
@@ -7,7 +9,9 @@ public class Member {
     private String name;
     private int age;
     private String address;
+    private final Enum<MembershipTypes> membershipType;
     private boolean hasPaid;
+    private static boolean active;
 
     public Member(int id, String name, int age, String address, boolean hasPaid){
         this.id = id;
@@ -15,6 +19,9 @@ public class Member {
         this.age = age;
         this.address = address;
         this.hasPaid = hasPaid;
+        this.membershipType = assignMembershipTypes(age);
+        this.active = true;
+
     }
 
     public int getId() {
@@ -57,6 +64,10 @@ public class Member {
         this.hasPaid = hasPaid;
     }
 
+    public Enum<MembershipTypes> getMembershipType() {
+        return membershipType;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Member: \n");
@@ -67,4 +78,48 @@ public class Member {
         sb.append("Has paid: ").append(hasPaid).append("\n");
         return sb.toString();
     }
+
+    public Enum<MembershipTypes> assignMembershipTypes(int age) {
+
+        if(age < 18) {
+            return MembershipTypes.Junior;
+        }
+        else if(age < 60) {
+            return MembershipTypes.Senior;
+        }
+        else {
+            return MembershipTypes.SuperSenior;
+        }
+
+    }
+
+    public static double calculateTotalFee(List<Member> members) {
+
+        double totalFee = 0;
+
+        for(int i = 0; i < members.size(); i++) {
+
+            Enum<MembershipTypes> fee = members.get(i).getMembershipType();
+
+            if(active) {
+
+                if (fee == MembershipTypes.Junior) {
+                    totalFee += 1000;
+                } else if (fee == MembershipTypes.Senior) {
+                    totalFee += 1600;
+                } else {
+                    totalFee += 1200;
+                }
+
+            }
+            else{
+                totalFee += 500;
+            }
+
+        }
+
+        return totalFee;
+
+    }
+
 }
