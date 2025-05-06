@@ -15,39 +15,6 @@ public class MemberManager {
         members = fileHandler.loadMembers();
     }
 
-    /*
-
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        while(true) {
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch(choice) {
-                case 1:
-                    addNewMember(scanner);
-                    break;
-                case 2:
-                    editMember(scanner);
-                    break;
-                case 3:
-                    deleteMember(scanner);
-                    break;
-            }
-
-            for (Member m : members) {
-                System.out.println(m);
-            }
-
-        }
-
-    }
-
-     */
-
     public static void addNewMember(Scanner scanner) {
 
         boolean proceed = false;
