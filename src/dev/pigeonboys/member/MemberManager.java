@@ -31,6 +31,7 @@ public class MemberManager {
         String address = "";
 
         boolean hasPaid = true;
+        boolean isActive = true;
 
         while(!proceed) {
 
@@ -143,7 +144,39 @@ public class MemberManager {
 
         }
 
-        Member member = new Member(ID, name, age, address, hasPaid);
+        int membershipStatus = 0;
+
+        while(!proceed) {
+            System.out.println("Please choose membership status.");
+            System.out.println("1. Active");
+            System.out.println("2. Passive");
+
+            try {
+
+                membershipStatus = scanner.nextInt();
+                scanner.nextLine();
+
+
+                if(membershipStatus == 1 || membershipStatus == 2) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+            }
+
+            if (membershipStatus == 1) {
+                isActive = true;
+            } else if (membershipStatus == 2) {
+                isActive = false;
+            }
+
+        }
+
+        Member member = new Member(ID, name, age, address, hasPaid, isActive);
 
         members.add(member);
         fileHandler.saveMember(member);
@@ -192,6 +225,7 @@ public class MemberManager {
             System.out.println("2. Age");
             System.out.println("3. Address");
             System.out.println("4. Payment Status");
+            System.out.println("5. Membership Status");
 
             try {
 
@@ -309,13 +343,13 @@ public class MemberManager {
                     }
                 }
 
-                System.out.println("Member " + memberID + "'s age was changed to " + newAddress + ".");
+                System.out.println("Member " + memberID + "'s address was changed to " + newAddress + ".");
 
                 break;
 
             case 4:
 
-                int status = 0;
+                int paymentStatus = 0;
 
                 System.out.println("What do you want want to change the member's payment status to?");
 
@@ -332,10 +366,10 @@ public class MemberManager {
 
                             try {
 
-                                status = scanner.nextInt();
+                                paymentStatus = scanner.nextInt();
                                 scanner.nextLine();
 
-                                if(status == 1 || status == 2) {
+                                if(paymentStatus == 1 || paymentStatus == 2) {
                                     proceed = true;
                                 }
                                 else{
@@ -350,7 +384,7 @@ public class MemberManager {
 
                         }
 
-                        if (status == 1) {
+                        if (paymentStatus == 1) {
 
                             if (s.getHasPaid()) {
                                 s.setHasPaid(false);
@@ -365,6 +399,59 @@ public class MemberManager {
                 }
 
                 break;
+
+            case 5:
+
+            int membershipStatus = 0;
+
+            System.out.println("What do you want want to change the membership status to?");
+
+            for(Member s : members) {
+                if (memberID == s.getId()) {
+
+                    System.out.println(memberID + "'s membership status is currently set to " + s.getActive());
+
+                    System.out.println("Do you want to change the payment status?");
+                    System.out.println("1. Yes");
+                    System.out.println("2. No");
+
+                    while(!proceed) {
+
+                        try {
+
+                            membershipStatus = scanner.nextInt();
+                            scanner.nextLine();
+
+                            if(membershipStatus == 1 || membershipStatus == 2) {
+                                proceed = true;
+                            }
+                            else{
+                                System.out.println("Invalid input.");
+                                scanner.nextLine();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println();
+                            scanner.nextLine();
+                        }
+
+                    }
+
+                    if (membershipStatus == 1) {
+
+                        if (s.getHasPaid()) {
+                            s.setActive(false);
+                            System.out.println("Member " + memberID + "'s membership status was changed to " + s.getActive() + ".");
+                        } else if (!s.getHasPaid()) {
+                            s.setActive(true);
+                            System.out.println("Member " + memberID + "'s membership status was changed to " + s.getActive() + ".");
+                        }
+                    }
+                }
+
+            }
+
+            break;
             default:
                 System.out.println("Input does not correspond with an attribute.");
 

@@ -13,14 +13,14 @@ public class Member {
     private boolean hasPaid;
     private static boolean active;
 
-    public Member(int id, String name, int age, String address, boolean hasPaid){
+    public Member(int id, String name, int age, String address, boolean hasPaid, boolean active){
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
         this.hasPaid = hasPaid;
         this.membershipType = assignMembershipTypes(age);
-        this.active = true;
+        this.active = active;
 
     }
 
@@ -122,4 +122,11 @@ public class Member {
 
     }
 
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
