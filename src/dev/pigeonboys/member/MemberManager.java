@@ -1,52 +1,261 @@
 package dev.pigeonboys.member;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MemberManager {
 
-    ArrayList<Member> members = new ArrayList<>();
+    static List<Member> members = new ArrayList<>();
 
-    void addNewMember(String name, int age, String address, String memberShipType, boolean hasPaid) {
+    /*
 
-        Member member = new Member(name, age, address, memberShipType, hasPaid);
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        while(true) {
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch(choice) {
+                case 1:
+                    addNewMember(scanner);
+                    break;
+                case 2:
+                    editMember(scanner);
+                    break;
+                case 3:
+                    deleteMember(scanner);
+                    break;
+            }
+
+            for (Member m : members) {
+                System.out.println(m);
+            }
+
+        }
+
+    }
+
+     */
+
+    static void addNewMember(Scanner scanner) {
+
+        boolean proceed = false;
+
+
+        int ID = 0;
+        String name = "";
+        int age = 0;
+        String address = "";
+
+        boolean hasPaid = true;
+
+        while(!proceed) {
+
+            try {
+                System.out.println("Please enter the ID of the new member.");
+                ID = scanner.nextInt();
+                scanner.nextLine();
+
+                if(ID > 0) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+
+        }
+
+        proceed = false;
+
+        while(!proceed) {
+
+            try {
+
+                System.out.println("Please enter the name of the new member.");
+                name = scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+        }
+
+        proceed = false;
+
+        while(!proceed) {
+
+            try {
+
+                System.out.println("Please enter the age of the new member.");
+                age = scanner.nextInt();
+                scanner.nextLine();
+
+                if(age > 0 && age < 100) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+
+        }
+
+        proceed = false;
+
+        while(!proceed) {
+
+            try {
+                System.out.println("Please enter the address of the new member.");
+                address = scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+
+        }
+
+        proceed = false;
+
+        int paymentStatus = 0;
+
+        while(!proceed) {
+            System.out.println("Please choose a payment status.");
+            System.out.println("1. Paid");
+            System.out.println("2. Not paid");
+
+            try {
+
+                paymentStatus = scanner.nextInt();
+                scanner.nextLine();
+
+
+                if(paymentStatus == 1 || paymentStatus == 2) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+            }
+
+            if (paymentStatus == 1) {
+                hasPaid = true;
+            } else if (paymentStatus == 2) {
+                hasPaid = false;
+            }
+
+        }
+
+        Member member = new Member(ID, name, age, address, hasPaid);
 
         members.add(member);
 
     }
 
-    void editMember(Scanner scanner) {
+    static void editMember(Scanner scanner) {
 
-        System.out.println("Please enter the ID of the member whose attributes you want to alter.");
+        boolean proceed = false;
 
-        int memberID = scanner.nextInt();
+        int memberID = 0;
+
+        while (!proceed) {
+
+            System.out.println("Please enter the ID of the member whose attributes you want to alter.");
+
+            try {
+
+                memberID = scanner.nextInt();
+                scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+            }
+
+        }
+
+        proceed = false;
 
         for(Member s : members) {
-            if(memberID = s.getID()) {
+            if(memberID == s.getId()) {
                 System.out.println(s);
+                break;
+
             }
         }
 
-        System.out.println("Which attribute do you want to edit?");
-        System.out.println();
-        System.out.println("1. Name");
-        System.out.println("2. Age");
-        System.out.println("3. Address");
-        System.out.println("4. Payment Status");
+        int input = 0;
 
-        int input = scanner.nextInt();
+        while(!proceed) {
+
+            System.out.println("Which attribute do you want to edit?");
+            System.out.println();
+            System.out.println("1. Name");
+            System.out.println("2. Age");
+            System.out.println("3. Address");
+            System.out.println("4. Payment Status");
+
+            try {
+
+                input = scanner.nextInt();
+                scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+
+                System.out.println("Invalid input");
+                scanner.nextLine();
+
+            }
+
+        }
+
+        proceed = false;
 
         switch(input) {
 
             case 1:
 
-                System.out.println("What do you want want to change the member's name to?");
+                String newName = "";
 
-                String newName = scanner.nextLine();
+                while(!proceed) {
+
+                    System.out.println("What do you want want to change the member's name to?");
+
+                    try {
+
+                        newName = scanner.nextLine();
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid input.");
+
+                    }
+
+                }
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setName(newName);
+                        break;
                     }
                 }
 
@@ -56,13 +265,35 @@ public class MemberManager {
 
             case 2:
 
+                int newAge = 0;
+
+                while(!proceed) {
+
                 System.out.println("What do you want want to change the member's age to?");
 
-                int newAge = scanner.nextInt();
+                try {
+
+                    newAge = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if(newAge > 0 && newAge < 100) {
+                        proceed = true;
+                    }
+                    else{
+                        System.out.println("Invalid input.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Invalid input.");
+                    scanner.nextLine();
+                }
+
+                }
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setAge(newAge);
+                        break;
                     }
                 }
 
@@ -72,13 +303,29 @@ public class MemberManager {
 
             case 3:
 
-                System.out.println("What do you want want to change the member's address to?");
+                String newAddress = "";
 
-                int newAddress = scanner.nextInt();
+                while(!proceed) {
+
+                    System.out.println("What do you want want to change the member's address to?");
+
+                    try {
+
+                        newAddress = scanner.nextLine();
+                        proceed = true;
+
+                    } catch (Exception e) {
+
+                        System.out.println("Invalid input.");
+
+                    }
+
+                }
 
                 for(Member s : members) {
-                    if(memberID = s.getID()) {
+                    if(memberID == s.getId()) {
                         s.setAddress(newAddress);
+                        break;
                     }
                 }
 
@@ -88,10 +335,12 @@ public class MemberManager {
 
             case 4:
 
+                int status = 0;
+
                 System.out.println("What do you want want to change the member's payment status to?");
 
                 for(Member s : members) {
-                    if (memberID = s.getID()) {
+                    if (memberID == s.getId()) {
 
                         System.out.println(memberID + "'s payment status is currently set to " + s.getHasPaid());
 
@@ -99,7 +348,26 @@ public class MemberManager {
                         System.out.println("1. Yes");
                         System.out.println("2. No");
 
-                        int status = scanner.nextInt();
+                        while(!proceed) {
+
+                            try {
+
+                                status = scanner.nextInt();
+                                scanner.nextLine();
+
+                                if(status == 1 || status == 2) {
+                                    proceed = true;
+                                }
+                                else{
+                                    System.out.println("Invalid input.");
+                                }
+
+                            } catch (Exception e) {
+                                System.out.println();
+                                scanner.nextLine();
+                            }
+
+                        }
 
                         if (status == 1) {
 
@@ -123,19 +391,36 @@ public class MemberManager {
 
     }
 
-    void deleteMember(Scanner scanner) {
+    static void deleteMember(Scanner scanner) {
 
-        System.out.println("Please enter the ID of the member you want to delete.");
+        boolean proceed = false;
 
-        int ID = scanner.nextInt();
+        int ID = 0;
 
-        for(Member s : members) {
-            if(s.getID() == ID) {
-                System.out.println(s.getName() + " was deleted.");
-                members.remove(s);
+        while(!proceed) {
+
+            System.out.println("Please enter the ID of the member you want to delete.");
+
+            try {
+                ID = scanner.nextInt();
+                scanner.nextLine();
+                proceed = true;
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
             }
+
         }
 
+        for(Member s : members) {
+
+            if(s.getId() == ID) {
+                System.out.println(s.getName() + " was deleted.");
+                members.remove(s);
+                break;
+            }
+        }
 
     }
 

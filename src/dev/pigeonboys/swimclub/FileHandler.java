@@ -15,7 +15,7 @@ public class FileHandler {
         PrintWriter out = new PrintWriter(writer)) {
 
             out.println(member.getId() + "|" + member.getName() + "|"
-                    + member.getAge() + "|" + member.getAddress());
+                    + member.getAge() + "|" + member.getAddress() + "|" + member.getHasPaid());
         } catch(IOException e) {
             System.err.println("Error adding member" + e.getMessage());
         }
@@ -34,14 +34,15 @@ public class FileHandler {
             String line;
             while((line = reader.readLine()) != null) {
                 String[] parts = line.split("|");
-                if(parts.length == 3) {
+                if(parts.length == 5) {
                     try {
                         int id = Integer.parseInt(parts[0]);
                         String name = parts[1];
                         int age = Integer.parseInt(parts[2]);
                         String address = parts[3];
+                        boolean hasPaid = Boolean.parseBoolean(parts[4]);
 
-                        Member member = new Member(id, name, age, address);
+                        Member member = new Member(id, name, age, address, hasPaid);
 
                         loadedMembers.add(member);
                     } catch(NumberFormatException e) {
@@ -49,6 +50,7 @@ public class FileHandler {
                     }
                 }
             }
+            System.out.println("Successfully loaded " + loadedMembers.size() + " members");
         } catch(IOException e) {
             System.err.println("Error loading members from file" + e.getMessage());
         }
