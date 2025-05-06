@@ -368,6 +368,7 @@ public class MemberManager {
                                 }
                                 else{
                                     System.out.println("Invalid input.");
+                                    scanner.nextLine();
                                 }
 
                             } catch (Exception e) {
