@@ -59,7 +59,14 @@ public class MemberManager {
                 System.out.println("Please enter the ID of the new member.");
                 ID = scanner.nextInt();
                 scanner.nextLine();
-                proceed = true;
+
+                if(ID > 0) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input");
+                }
+
             } catch (Exception e) {
                 System.out.println("Invalid input.");
                 scanner.nextLine();
@@ -92,7 +99,13 @@ public class MemberManager {
                 System.out.println("Please enter the age of the new member.");
                 age = scanner.nextInt();
                 scanner.nextLine();
-                proceed = true;
+
+                if(age > 0 && age < 100) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input.");
+                }
 
             } catch (Exception e) {
                 System.out.println("Invalid input.");
@@ -130,7 +143,14 @@ public class MemberManager {
 
                 paymentStatus = scanner.nextInt();
                 scanner.nextLine();
-                proceed = true;
+
+
+                if(paymentStatus == 1 || paymentStatus == 2) {
+                    proceed = true;
+                }
+                else{
+                    System.out.println("Invalid input.");
+                }
 
             } catch (Exception e) {
                 System.out.println("Invalid input.");
@@ -247,7 +267,7 @@ public class MemberManager {
 
                 int newAge = 0;
 
-                while(proceed) {
+                while(!proceed) {
 
                 System.out.println("What do you want want to change the member's age to?");
 
@@ -255,7 +275,13 @@ public class MemberManager {
 
                     newAge = scanner.nextInt();
                     scanner.nextLine();
-                    proceed = true;
+
+                    if(newAge > 0 && newAge < 100) {
+                        proceed = true;
+                    }
+                    else{
+                        System.out.println("Invalid input.");
+                    }
 
                 } catch (Exception e) {
                     System.out.println("Invalid input.");
@@ -329,7 +355,12 @@ public class MemberManager {
                                 status = scanner.nextInt();
                                 scanner.nextLine();
 
-                                proceed = true;
+                                if(status == 1 || status == 2) {
+                                    proceed = true;
+                                }
+                                else{
+                                    System.out.println("Invalid input.");
+                                }
 
                             } catch (Exception e) {
                                 System.out.println();
