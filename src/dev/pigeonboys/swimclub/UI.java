@@ -25,7 +25,7 @@ public class UI {
         int s;
 
         while (true) {
-            System.out.print("Indtast tal fra 1-5: ");
+            System.out.print(ANSI_GREEN + "Indtast tal fra 1-5: " + ANSI_RESET);
             if (scanner.hasNextInt()) {
                 s = scanner.nextInt();
                 if (s >= 1 && s <= 3) {
@@ -46,7 +46,7 @@ public class UI {
         System.out.println("BRUGER MENU:\n----------");
         System.out.println("1." + ANSI_BLUE + "\"Formand\"" + ANSI_RESET);
         System.out.println("2." + ANSI_BLUE + "\"Træner\"" + ANSI_RESET);
-        System.out.println("1." + ANSI_RED + "\"Kasér\"" + ANSI_RESET);
+        System.out.println("1." + ANSI_BLUE + "\"Kasér\"" + ANSI_RESET);
 
 
 
