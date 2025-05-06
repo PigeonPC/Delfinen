@@ -178,7 +178,7 @@ public class MemberManager {
 
     }
 
-    static void editMember(Scanner scanner) {
+    public static void editMember(Scanner scanner) {
 
         boolean proceed = false;
 
@@ -399,7 +399,7 @@ public class MemberManager {
 
     }
 
-    static void deleteMember(Scanner scanner) {
+    public static void deleteMember(Scanner scanner) {
 
         boolean proceed = false;
 
