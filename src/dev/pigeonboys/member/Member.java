@@ -11,7 +11,7 @@ public class Member {
     private String address;
     private final Enum<MembershipTypes> membershipType;
     private boolean hasPaid;
-    private static boolean active;
+    private boolean active;
 
     public Member(int id, String name, int age, String address, boolean hasPaid, boolean active){
         this.id = id;
@@ -97,11 +97,11 @@ public class Member {
 
         double totalFee = 0;
 
-        for(int i = 0; i < members.size(); i++) {
+        for (Member member : members) {
 
-            Enum<MembershipTypes> fee = members.get(i).getMembershipType();
+            Enum<MembershipTypes> fee = member.getMembershipType();
 
-            if(active) {
+            if (member.getActive()) {
 
                 if (fee == MembershipTypes.Junior) {
                     totalFee += 1000;
@@ -111,8 +111,7 @@ public class Member {
                     totalFee += 1200;
                 }
 
-            }
-            else{
+            } else {
                 totalFee += 500;
             }
 
