@@ -1,20 +1,27 @@
 package dev.pigeonboys.member;
 
-public class Member {
+import java.util.List;
+
+public class Member implements Pay{
 
     //15 min - Olga
     private int id;
     private String name;
     private int age;
     private String address;
+    private final Enum<MembershipTypes> membershipType;
     private boolean hasPaid;
+    private boolean active;
 
-    public Member(int id, String name, int age, String address, boolean hasPaid){
+    public Member(int id, String name, int age, String address, boolean hasPaid, boolean active){
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
         this.hasPaid = hasPaid;
+        this.membershipType = assignMembershipTypes(age);
+        this.active = active;
+
     }
 
     public int getId() {
@@ -57,6 +64,10 @@ public class Member {
         this.hasPaid = hasPaid;
     }
 
+    public Enum<MembershipTypes> getMembershipType() {
+        return membershipType;
+    }
+
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Member: \n");
@@ -66,5 +77,55 @@ public class Member {
         sb.append("Address: ").append(address).append("\n");
         sb.append("Has paid: ").append(hasPaid).append("\n");
         return sb.toString();
+    }
+
+    public Enum<MembershipTypes> assignMembershipTypes(int age) {
+
+        if(age < 18) {
+            return MembershipTypes.Junior;
+        }
+        else if(age < 60) {
+            return MembershipTypes.Senior;
+        }
+        else {
+            return MembershipTypes.SuperSenior;
+        }
+
+    }
+
+    public static double calculateTotalFee(List<Member> members) {
+
+        double totalFee = 0;
+
+        for (Member member : members) {
+
+            Enum<MembershipTypes> fee = member.getMembershipType();
+
+            if (member.getActive()) {
+
+                if (fee == MembershipTypes.Junior) {
+                    totalFee += 1000;
+                } else if (fee == MembershipTypes.Senior) {
+                    totalFee += 1600;
+                } else {
+                    totalFee += 1200;
+                }
+
+            } else {
+                totalFee += 500;
+            }
+
+        }
+
+        return totalFee;
+
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
