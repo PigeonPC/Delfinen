@@ -2,7 +2,7 @@ package dev.pigeonboys.member;
 
 import java.util.List;
 
-public class Member {
+public class Member implements Pay{
 
     //15 min - Olga
     private int id;
