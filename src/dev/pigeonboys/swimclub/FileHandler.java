@@ -4,56 +4,67 @@ import dev.pigeonboys.member.Member;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FileHandler {
     private static final String FILE_PATH = "members.txt";
 
+    private static final Pattern MEMBER_PATTERN = Pattern.compile("(\\d+)\\|([^|]+)\\|(\\d+)\\|([^|]+)\\|(true|false)\\|(true|false)");
+
+
     public void saveMember(Member member) {
 
-        try(FileWriter fw = new FileWriter(FILE_PATH, true);
-        BufferedWriter writer = new BufferedWriter(fw);
-        PrintWriter out = new PrintWriter(writer)) {
+        try(FileWriter fw = new FileWriter(FILE_PATH, true))
+        {
+            String memberData = String.format("%d|%s|%d|%s|%b|%b%n",
+                    member.getId(),
+                    member.getName(),
+                    member.getAge(),
+                    member.getAddress(),
+                    member.getHasPaid(),
+                    member.getActive());
+            fw.write(memberData);
 
-            out.println(member.getId() + "|" + member.getName() + "|"
-                    + member.getAge() + "|" + member.getAddress() + "|" + member.getHasPaid());
-        } catch(IOException e) {
-            System.err.println("Error adding member" + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error writing to file:" + e.getMessage());
         }
     }
 
-    public ArrayList<Member> loadMembers() {
-        ArrayList<Member> loadedMembers = new ArrayList<>();
-
+    public List<Member> loadMembers() {
+        List<Member> memberList = new ArrayList<>();
         File file = new File(FILE_PATH);
+
         if(!file.exists()) {
-            System.out.println("No saved members found");
-            return loadedMembers;
+            System.out.println("File not found");
+            return memberList;
         }
 
-        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while((line = reader.readLine()) != null) {
-                String[] parts = line.split("|");
-                if(parts.length == 5) {
-                    try {
-                        int id = Integer.parseInt(parts[0]);
-                        String name = parts[1];
-                        int age = Integer.parseInt(parts[2]);
-                        String address = parts[3];
-                        boolean hasPaid = Boolean.parseBoolean(parts[4]);
+                Matcher matcher = MEMBER_PATTERN.matcher(line);
 
-                        Member member = new Member(id, name, age, address, hasPaid);
+                if (matcher.matches()) {
+                    int id = Integer.parseInt(matcher.group(1));
+                    String name = matcher.group(2);
+                    int age = Integer.parseInt(matcher.group(3));
+                    String address = matcher.group(4);
+                    boolean hasPaid = Boolean.parseBoolean(matcher.group(5));
+                    boolean active = Boolean.parseBoolean(matcher.group(6));
 
-                        loadedMembers.add(member);
-                    } catch(NumberFormatException e) {
-                        System.err.println("Invalid format" + e.getMessage());
-                    }
+                    Member member = new Member(id, name, age, address, hasPaid, active);
+                    memberList.add(member);
+                } else {
+                    System.err.println("Invalid member format found: " + line);
                 }
             }
-            System.out.println("Successfully loaded " + (loadedMembers.size()+1) + " members");
+            System.out.println("Loaded " + memberList.size() + " members from file.");
+            return memberList;
         } catch(IOException e) {
-            System.err.println("Error loading members from file" + e.getMessage());
+            System.err.println("Error reading members file: " + e.getMessage());
+            return memberList;
         }
-        return loadedMembers;
     }
 }
