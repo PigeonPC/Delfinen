@@ -23,9 +23,9 @@ public class CalculateTotalFeeTest {
         members.add(member2);
         members.add(member3);
 
-        //Total Fee burde således være 1600 + 500 + 1200 = 3800
+        //Total Fee burde således være 1600 + 500 + 1200 = 3300
 
-        assertEquals(3800, Member.calculateTotalFee(members));
+        assertEquals(3300, Member.calculateTotalFee(members));
 
     }
 
