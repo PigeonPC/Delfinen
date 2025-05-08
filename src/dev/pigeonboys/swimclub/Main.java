@@ -5,11 +5,11 @@ import dev.pigeonboys.member.MemberManager;
 import java.util.Scanner;
 
 public class Main {
-    MemberManager mm;
+    //MemberManager mm;
     Scanner scanner;
 
     public Main() {
-        mm = new MemberManager();
+       // mm = new MemberManager();
         scanner = new Scanner(System.in);
     }
 
@@ -19,8 +19,8 @@ public class Main {
     }
 
     public void run() {
-      //  mm.addNewMember(scanner);
         UI.getUserInput(scanner);
+
     }
 
 
