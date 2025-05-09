@@ -17,12 +17,12 @@ public class CompetitiveSwimmer extends Member{
 
     }
 
-    void assignDisciplines(Scanner scanner) {
+    public void assignDisciplines(Scanner scanner) {
 
         boolean toContinue = false;
         boolean disciplineAssigned = false;
-        int memberID = scanner.nextInt();
-        int assignedDiscipline = scanner.nextInt();
+        int memberID = 0;
+        int assignedDiscipline = 0;
 
         while(!toContinue) {
 
@@ -36,7 +36,7 @@ public class CompetitiveSwimmer extends Member{
 
 
             } catch (Exception e) {
-                System.out.println();
+                System.out.println("Invalid input.");
                 scanner.nextLine();
             }
 

@@ -1,6 +1,9 @@
 package dev.pigeonboys.swimclub;
 
+import dev.pigeonboys.member.CompetitiveSwimmer;
+import dev.pigeonboys.member.Member;
 import dev.pigeonboys.member.MemberManager;
+import dev.pigeonboys.member.Trainer;
 
 import java.util.Scanner;
 
@@ -61,7 +64,7 @@ public class UI {
                 break;
 
             case 2:
-                System.out.println("placeholder");
+                traener(scanner);
                 break;
 
             case 3:
@@ -110,22 +113,92 @@ public class UI {
                 case 3:
                     //2. delete member
                     MemberManager.deleteMember(scanner);
-
                     break;
+                default :
+
+
             }
 
 
         }
 
     }
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        UI.getUserInput(scanner);
+    public static void traener(Scanner scanner){
 
-        scanner.close();
+
+        boolean toContinue = false;
+
+        Trainer traener = new Trainer("");
+        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
+
+        while(!toContinue) {
+
+            System.out.println("\nForetag et valg:");
+            System.out.println("1. Tildel discipliner");
+
+            try {
+
+                int choice = scanner.nextInt();
+
+                switch(choice) {
+                    case 1:
+                        swimmer.assignDisciplines(scanner);
+                        toContinue = true;
+                        break;
+                    default:
+                        System.out.println("Invalid input");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+
+        }
+
     }
 
+    public static void kasser(Scanner scanner) {
+
+        boolean toContinue = false;
+
+        Member member = new Member(0, "", 0, "", false, false);
+        MemberManager mm = new MemberManager();
+        FileHandler fh = new FileHandler();
+        FeeManager fm = new FeeManager(fh);
+
+        while(!toContinue) {
+
+            System.out.println("\nForetag et valg:");
+            System.out.println("1. Vis forventet indtægt fra kontingenter.");
+            System.out.println("2. Vis medlemmer i restance.");
+
+            try {
+
+                int choice = scanner.nextInt();
+
+                switch(choice) {
+                    case 1:
+                        member.calculateTotalFee(mm.getMembers());
+                        toContinue = true;
+                        break;
+                    case 2:
+                        fm.getUnpaidMembers();
+                        toContinue = true;
+                    default:
+                        System.out.println("Invalid input");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                scanner.nextLine();
+            }
+
+        }
+
+
+    }
 
 }
 
