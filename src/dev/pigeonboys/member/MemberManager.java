@@ -255,6 +255,7 @@ public class MemberManager {
                     try {
 
                         newName = scanner.nextLine();
+                        proceed = true;
 
                     } catch (Exception e) {
 
