@@ -68,7 +68,7 @@ public class UI {
                 break;
 
             case 3:
-                System.out.println("placeholder");
+                kasser(scanner);
                 break;
 
             default:
