@@ -4,7 +4,7 @@ public class Trainer {
 
     String name;
 
-    Trainer(String name) {
+    public Trainer(String name) {
         this.name = name;
     }
 
