@@ -110,8 +110,9 @@ public class UI {
                 case 3:
                     //2. delete member
                     MemberManager.deleteMember(scanner);
-
                     break;
+                default :
+
 
             }
 
@@ -119,14 +120,6 @@ public class UI {
         }
 
     }
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        UI.getUserInput(scanner);
-
-        scanner.close();
-    }
-
-
 }
 
 
