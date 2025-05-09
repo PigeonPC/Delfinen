@@ -127,6 +127,11 @@ public class MemberManager {
 
                 if(paymentStatus == 1 || paymentStatus == 2) {
                     proceed = true;
+
+                    if(paymentStatus == 1) {
+                        hasPaid = false;
+                    }
+
                 }
                 else{
                     System.out.println("Invalid input.");
@@ -136,15 +141,11 @@ public class MemberManager {
                 System.out.println("Invalid input.");
             }
 
-            if (paymentStatus == 1) {
-                hasPaid = true;
-            } else if (paymentStatus == 2) {
-                hasPaid = false;
-            }
-
         }
 
         int membershipStatus = 0;
+
+        proceed = false;
 
         while(!proceed) {
             System.out.println("Please choose membership status.");
@@ -156,9 +157,12 @@ public class MemberManager {
                 membershipStatus = scanner.nextInt();
                 scanner.nextLine();
 
-
                 if(membershipStatus == 1 || membershipStatus == 2) {
                     proceed = true;
+
+                    if (membershipStatus == 2) {
+                        isActive = false;
+                    }
                 }
                 else{
                     System.out.println("Invalid input.");
@@ -166,12 +170,6 @@ public class MemberManager {
 
             } catch (Exception e) {
                 System.out.println("Invalid input.");
-            }
-
-            if (membershipStatus == 1) {
-                isActive = true;
-            } else if (membershipStatus == 2) {
-                isActive = false;
             }
 
         }
