@@ -67,4 +67,40 @@ public class FileHandler {
             return memberList;
         }
     }
+
+    public void updateMembers(List<Member> members) {
+        File tempFile = new File(FILE_PATH + ".tmp");
+
+        try (FileWriter fw = new FileWriter(tempFile);
+             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+
+            for (Member member : members) {
+                String memberData = String.format("%d|%s|%d|%s|%b|%b%n",
+                        member.getId(),
+                        member.getName(),
+                        member.getAge(),
+                        member.getAddress(),
+                        member.getHasPaid(),
+                        member.getActive());
+                fw.write(memberData);
+            }
+
+            fw.close();
+            reader.close();
+
+            File originalFile = new File(FILE_PATH);
+            if (!originalFile.delete()) {
+                System.err.println("Could not delete original file");
+            }
+
+            if (!tempFile.renameTo(originalFile)) {
+                System.err.println("Could not rename temp file");
+            }
+
+            System.out.println("Members file updated successfully.");
+
+        } catch (IOException e) {
+            System.err.println("Error updating members file: " + e.getMessage());
+        }
+    }
 }
