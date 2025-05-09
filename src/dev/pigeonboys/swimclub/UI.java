@@ -177,6 +177,7 @@ public class UI {
             try {
 
                 int choice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch(choice) {
                     case 1:
