@@ -448,6 +448,7 @@ public class MemberManager {
                 }
 
             }
+            fileHandler.updateMembers(members);
 
             break;
             default:
