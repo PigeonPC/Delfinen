@@ -189,6 +189,7 @@ public class UI {
                             System.out.println(m);
                         }
                         toContinue = true;
+                        break;
                     default:
                         System.out.println("Invalid input");
                 }
