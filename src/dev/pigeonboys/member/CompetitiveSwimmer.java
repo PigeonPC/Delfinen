@@ -20,9 +20,13 @@ public class CompetitiveSwimmer extends Member {
         Trainer traener = new Trainer("");
         CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
 
-
+        swimmer.loadResults(swimmer.getCompetitionResults());
         swimmer.updateCompetitiveResults();
 
+    }
+
+    private List<CompetitionResult> getCompetitionResults() {
+        return competitionResults;
     }
 
     public CompetitiveSwimmer(int id, String name, int age, String address, boolean hasPaid, boolean active, Trainer trainer) {
@@ -119,7 +123,7 @@ public class CompetitiveSwimmer extends Member {
 
     }
 
-    public void loadResults(ArrayList<CompetitionResult> competitiveResults) {
+    public void loadResults(List<CompetitionResult> competitiveResults) {
 
         try {
             File results = new File("competitiveResults.txt");
@@ -133,13 +137,12 @@ public class CompetitiveSwimmer extends Member {
                 String[] split = memberData.split("\\|");
 
                 int id = Integer.parseInt(split[0].trim());
-                String disciplin = split[1].trim();
+                SwimmingDisciplines disciplin = SwimmingDisciplines.valueOf(split[1].trim());
                 double time = Double.parseDouble(split[2].trim());
-                SwimmingDisciplines competitionName = SwimmingDisciplines.valueOf(split[3].trim());
+                String competitionName = split[3].trim();
                 String date = split[4].trim();
 
-                competitionResults.add(new CompetitionResult(id, time, competitionName, disciplin, date));
-
+                competitionResults.add(new CompetitionResult(id, time, disciplin, competitionName, date));
             }
 
         }catch(FileNotFoundException e){
