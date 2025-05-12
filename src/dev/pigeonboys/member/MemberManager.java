@@ -255,6 +255,7 @@ public class MemberManager {
                     try {
 
                         newName = scanner.nextLine();
+                        proceed = true;
 
                     } catch (Exception e) {
 
@@ -272,7 +273,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s name was changed to " + newName + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 2:
@@ -310,7 +311,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s age was changed to " + newAge + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 3:
@@ -342,7 +343,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s address was changed to " + newAddress + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 4:
@@ -395,7 +396,7 @@ public class MemberManager {
                     }
 
                 }
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 5:
@@ -485,6 +486,7 @@ public class MemberManager {
             if(s.getId() == ID) {
                 System.out.println(s.getName() + " was deleted.");
                 members.remove(s);
+                fileHandler.updateMembers(members);
                 break;
             }
         }

@@ -177,15 +177,20 @@ public class UI {
             try {
 
                 int choice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch(choice) {
                     case 1:
-                        member.calculateTotalFee(mm.getMembers());
+                        System.out.println(member.calculateTotalFee(mm.getMembers()));
                         toContinue = true;
                         break;
                     case 2:
-                        fm.getUnpaidMembers();
+
+                        for(Member m : fm.getUnpaidMembers()) {
+                            System.out.println(m);
+                        }
                         toContinue = true;
+                        break;
                     default:
                         System.out.println("Invalid input");
                 }
