@@ -273,7 +273,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s name was changed to " + newName + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 2:
@@ -311,7 +311,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s age was changed to " + newAge + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 3:
@@ -343,7 +343,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s address was changed to " + newAddress + ".");
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 4:
@@ -396,7 +396,7 @@ public class MemberManager {
                     }
 
                 }
-
+                fileHandler.updateMembers(members);
                 break;
 
             case 5:
