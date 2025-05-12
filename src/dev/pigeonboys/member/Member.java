@@ -82,13 +82,13 @@ public class Member implements Pay{
     public Enum<MembershipTypes> assignMembershipTypes(int age) {
 
         if(age < 18) {
-            return MembershipTypes.Junior;
+            return MembershipTypes.JUNIOR;
         }
         else if(age < 60) {
-            return MembershipTypes.Senior;
+            return MembershipTypes.SENIOR;
         }
         else {
-            return MembershipTypes.SuperSenior;
+            return MembershipTypes.SUPERSENIOR;
         }
 
     }
@@ -103,9 +103,9 @@ public class Member implements Pay{
 
             if (member.getActive()) {
 
-                if (fee == MembershipTypes.Junior) {
+                if (fee == MembershipTypes.JUNIOR) {
                     totalFee += 1000;
-                } else if (fee == MembershipTypes.Senior) {
+                } else if (fee == MembershipTypes.SENIOR) {
                     totalFee += 1600;
                 } else {
                     totalFee += 1200;
