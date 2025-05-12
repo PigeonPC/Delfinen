@@ -1,156 +1,160 @@
 package dev.pigeonboys.member;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CompetitiveSwimmer extends Member{
+public class CompetitiveSwimmer extends Member {
+
 
     Trainer trainer;
-    List<Enum<SwimmingDisciplines>> disciplines;
+    List<CompetitionResult> competitionResults;
+    List<TrainingResult> trainingResults;
+
+    public static void main(String[] args) {
+
+        Trainer traener = new Trainer("");
+        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
+
+
+        swimmer.updateCompetitiveResults();
+
+    }
 
     public CompetitiveSwimmer(int id, String name, int age, String address, boolean hasPaid, boolean active, Trainer trainer) {
 
         super(id, name, age, address, hasPaid, active);
         this.trainer = trainer;
-        disciplines = new ArrayList<>();
+        competitionResults = new ArrayList<>();
+        trainingResults = new ArrayList<>();
+
+        //Delete
+        competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
+        competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
 
     }
 
-    public void assignDisciplines(Scanner scanner) {
+    public void addCompetitionResult(Scanner scanner) {
 
-        boolean toContinue = false;
-        boolean disciplineAssigned = false;
-        int memberID = 0;
-        int assignedDiscipline = 0;
+        System.out.println("Please enter ID of swimmer.");
 
-        while(!toContinue) {
+        int ID = scanner.nextInt();
+        scanner.nextLine();
 
-            System.out.println("Please enter the ID of the Swimmer that you want to assign disciplines to.");
+        //System.out.println("Please enter the discipline of swimmer.");
+        SwimmingDisciplines discipline = SwimmingDisciplines.CRAWL;
 
-            try {
+        System.out.println("Please enter the date.");
+        String date = scanner.nextLine();
 
-                memberID = scanner.nextInt();
-                toContinue = true;
-                scanner.nextLine();
+        System.out.println("Please enter competition.");
+        String competitionName = scanner.nextLine();
 
+        System.out.println("Please enter time.");
+        double time = scanner.nextDouble();
+        scanner.nextLine();
 
-            } catch (Exception e) {
-                System.out.println("Invalid input.");
-                scanner.nextLine();
+        CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
+
+        for (CompetitionResult result : competitionResults) {
+            if (result.getID() == ID) {
+                if (result.getDiscipline() == discipline) {
+                    if (result.getTime() > time) {
+                        competitionResults.remove(result);
+                        competitionResults.add(competitionResult);
+                        System.out.println("New Best Time in " + discipline);
+                    }
+                } else if (result.getDiscipline() == null) {
+                    competitionResults.add(competitionResult);
+                    System.out.println("New Best Time in " + discipline);
+                }
             }
-
-        }
-
-        toContinue = false;
-
-        while(!toContinue) {
-
-            if (!disciplines.isEmpty()) {
-
-                System.out.println("Member " + memberID + " is already assigned the following disciplines.");
-
-                for (Enum<SwimmingDisciplines> s : disciplines) {
-                    System.out.println(s);
-                }
-
-            }
-
-            while(!disciplineAssigned) {
-
-                System.out.println("Which disciplines do you want to assign the swimmer?");
-                System.out.println();
-                System.out.println("1. Butterfly.");
-                System.out.println("2. Crawl.");
-                System.out.println("3. Rygcrawl.");
-                System.out.println("4. Brystsvoemning.");
-
-                try {
-
-                    assignedDiscipline = scanner.nextInt();
-                    scanner.nextLine();
-
-                } catch (Exception e) {
-
-                    System.out.println("Invalid input.");
-                    scanner.nextLine();
-
-                }
-
-
-                Enum<SwimmingDisciplines> addedDiscipline = null;
-
-                switch (assignedDiscipline) {
-
-                    case 1:
-                        addedDiscipline = SwimmingDisciplines.BUTTERFLY;
-                        disciplineAssigned = true;
-                        break;
-                    case 2:
-                        addedDiscipline = SwimmingDisciplines.CRAWL;
-                        disciplineAssigned = true;
-                        break;
-                    case 3:
-                        addedDiscipline = SwimmingDisciplines.RYGCRAWL;
-                        disciplineAssigned = true;
-                        break;
-                    case 4:
-                        addedDiscipline = SwimmingDisciplines.BRYSTSVOEMNING;
-                        disciplineAssigned = true;
-                        break;
-
-                    default:
-                        System.out.println("Invalid input.");
-
-                }
-
-                if (disciplines.contains(addedDiscipline)) {
-
-                    System.out.println("Swimmer is already assigned " + addedDiscipline);
-
-                }
-                else{
-                    disciplines.add(addedDiscipline);
-                    System.out.println("Swimmer has been assigned " + addedDiscipline);
-                }
-
-            }
-
-            disciplineAssigned = false;
-
-            int assignMore = 0;
-
-            while(assignMore != 1 && assignMore != 2) {
-
-                System.out.println("Do you want to assign more disciplines to the swimmer?");
-
-                System.out.println("1. Yes");
-                System.out.println("2. No");
-
-                try {
-
-                    assignMore = scanner.nextInt();
-                    scanner.nextLine();
-
-                } catch (Exception e) {
-                    System.out.println("Invalid input.");
-                    scanner.nextLine();
-                }
-
-                switch (assignMore) {
-                    case 1:
-
-                        break;
-                    case 2:
-                        toContinue = true;
-                        break;
-                    default:
-                        System.out.println("Invalid input.");
-                }
-
-            }
-
         }
 
     }
+
+    public void updateCompetitiveResults() {
+
+        //Create File. Probably to be deleted later.
+        try {
+
+            File competitiveResults = new File("competitiveResults.txt");
+            if (competitiveResults.createNewFile()) {
+                System.out.println("New file was created.");
+            } else {
+                System.out.println("File already exists.");
+            }
+
+        } catch (IOException e) {
+            System.out.println("An error occured.");
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter myWriter = new FileWriter("competitiveResults.txt");
+
+            for (CompetitionResult result : competitionResults) {
+
+                String memberData = String.format("%d|%s|%s|%s|%s%n",
+
+                        result.getID(),
+                        result.getDiscipline(),
+                        result.getTime(),
+                        result.getCompetitionName(),
+                        result.getDate());
+
+                myWriter.write(memberData);
+
+            }
+
+            myWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void loadResults(ArrayList<CompetitionResult> competitiveResults) {
+
+        try {
+            File results = new File("competitiveResults.txt");
+            Scanner myReader = new Scanner(results);
+
+
+            while (myReader.hasNextLine()) {
+
+                String memberData = myReader.nextLine();
+
+                String[] split = memberData.split("\\|");
+
+                int id = Integer.parseInt(split[0].trim());
+                String disciplin = split[1].trim();
+                double time = Double.parseDouble(split[2].trim());
+                SwimmingDisciplines competitionName = SwimmingDisciplines.valueOf(split[3].trim());
+                String date = split[4].trim();
+
+                competitionResults.add(new CompetitionResult(id, time, competitionName, disciplin, date));
+
+            }
+
+        }catch(FileNotFoundException e){
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void viewCompetitiveResults(Scanner scanner) {
+
+        //Mangler comparator.
+
+    }
+
+
 }

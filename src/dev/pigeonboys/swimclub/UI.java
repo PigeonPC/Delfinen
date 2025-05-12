@@ -143,7 +143,7 @@ public class UI {
 
                 switch(choice) {
                     case 1:
-                        swimmer.assignDisciplines(scanner);
+
                         toContinue = true;
                         break;
                     default:
