@@ -486,6 +486,7 @@ public class MemberManager {
             if(s.getId() == ID) {
                 System.out.println(s.getName() + " was deleted.");
                 members.remove(s);
+                fileHandler.updateMembers(members);
                 break;
             }
         }
