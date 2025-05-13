@@ -1,0 +1,5 @@
+3|Sofus|24|Mågevej|true|true
+5|Mona|80|Mågevej|true|true
+14|Abe|12|Mågevej|true|true
+1|Kaj|24|Mågevej|true|true
+9|Hankat|13|Mågevej|true|true

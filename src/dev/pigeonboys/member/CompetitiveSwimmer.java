@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 public class CompetitiveSwimmer extends Member {
 
-
     Trainer trainer;
     List<CompetitionResult> competitionResults;
     List<TrainingResult> trainingResults;
@@ -106,7 +105,7 @@ public class CompetitiveSwimmer extends Member {
             }
 
         } catch (IOException e) {
-            System.out.println("An error occured.");
+            System.out.println("An error occurred.");
             e.printStackTrace();
         }
 
@@ -167,18 +166,39 @@ public class CompetitiveSwimmer extends Member {
 
     public void viewCompetitiveResults(Scanner scanner) {
 
-        //Mangler comparator.
-
         MemberManager mm = new MemberManager();
 
         int counter = 0;
         int spaceCounter = 0;
 
+        System.out.println("1. Junior");
+        System.out.println("2. Senior");
+        System.out.println();
+        System.out.println("Pick an age group");
+
+        int ageGroupChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        MembershipTypes ageGroup = null;
+
+        switch(ageGroupChoice) {
+            case 1:
+                ageGroup = MembershipTypes.JUNIOR;
+                break;
+            case 2:
+                ageGroup = MembershipTypes.SENIOR;
+                break;
+            default:
+                System.out.println("Not an age group.");
+
+
+        }
+
         System.out.println("1. Butterfly");
         System.out.println("2. Crawl");
         System.out.println("3. Rygcrawl");
         System.out.println("4. Brystsvømning");
-
+        System.out.println();
         System.out.println("Pick a discipline");
 
         int disciplineChoice = scanner.nextInt();
@@ -195,6 +215,7 @@ public class CompetitiveSwimmer extends Member {
                 break;
             case 3:
                 discipline = SwimmingDisciplines.RYGCRAWL;
+                break;
             case 4:
                 discipline = SwimmingDisciplines.BRYSTSVOEMNING;
                 break;
@@ -210,7 +231,7 @@ public class CompetitiveSwimmer extends Member {
             if(cr.getDiscipline() == discipline) {
 
                 for(Member s : MemberManager.getMembers()) {
-                    if(cr.getID() == s.getId()) {
+                    if(cr.getID() == s.getId() && s.getMembershipType() == ageGroup) {
                         System.out.print(s.getName());
                         while(s.getName().length() + spaceCounter < 20) {
                             System.out.print(" ");
