@@ -15,6 +15,15 @@ public class CompetitiveSwimmer extends Member {
     List<CompetitionResult> competitionResults;
     List<TrainingResult> trainingResults;
 
+    public static void main(String[] args) {
+
+        Trainer trainer = new Trainer("");
+        CompetitiveSwimmer cs = new CompetitiveSwimmer(1, "", 2, "", false, false, trainer);
+
+        Scanner scanner = new Scanner(System.in);
+        cs.addCompetitionResult(scanner);
+    }
+
     public static void sortTime(CompetitiveSwimmer swimmer) {
 
         swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
@@ -32,10 +41,6 @@ public class CompetitiveSwimmer extends Member {
         competitionResults = loadResults();
         trainingResults = new ArrayList<>();
 
-        //Delete
-        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
-        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
-
     }
 
     public void addCompetitionResult(Scanner scanner) {
@@ -45,8 +50,33 @@ public class CompetitiveSwimmer extends Member {
         int ID = scanner.nextInt();
         scanner.nextLine();
 
-        //System.out.println("Please enter the discipline of swimmer.");
-        SwimmingDisciplines discipline = SwimmingDisciplines.CRAWL;
+        System.out.println("1. Butterfly");
+        System.out.println("2. Crawl");
+        System.out.println("3. Rygcrawl");
+        System.out.println("4. Brystsvømning");
+        System.out.println();
+        System.out.println("Pick a discipline");
+
+        int pickDisciplin = scanner.nextInt();
+        scanner.nextLine();
+        SwimmingDisciplines discipline = null;
+
+        switch(pickDisciplin) {
+            case 1:
+                discipline = SwimmingDisciplines.BUTTERFLY;
+                break;
+            case 2:
+                discipline = SwimmingDisciplines.CRAWL;
+                break;
+            case 3:
+                discipline = SwimmingDisciplines.RYGCRAWL;
+                break;
+            case 4:
+                discipline = SwimmingDisciplines.BRYSTSVOEMNING;
+                break;
+            default:
+                System.out.println("Not a disciplin.");
+        }
 
         System.out.println("Please enter the date.");
         String date = scanner.nextLine();
@@ -60,26 +90,31 @@ public class CompetitiveSwimmer extends Member {
 
         CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
 
-        for (CompetitionResult result : competitionResults) {
-            if (result.getID() == ID) {
-                if (result.getDiscipline() == discipline) {
-                    if (result.getTime() > time) {
-                        competitionResults.remove(result);
-                        competitionResults.add(competitionResult);
-                        System.out.println("New Best Time in " + discipline);
+        for (int i = 0; i < competitionResults.size(); i++) {
+
+            if (competitionResults.get(i).getID() == ID) {
+                if (competitionResults.get(i).getDiscipline() == discipline) {
+                    if (competitionResults.get(i).getTime() > time) {
+
+                        competitionResults.set(i, competitionResult);
+                        System.out.println("New Best Time in " + discipline + ". Old result was overwritten.");
+
                     }
-                } else if (result.getDiscipline() == null) {
+                    else{
+                        System.out.println("Result was not better than the best result.");
+                    }
+                } else {
                     competitionResults.add(competitionResult);
                     System.out.println("New Best Time in " + discipline);
                 }
             }
+
         }
 
     }
 
     public void updateCompetitiveResults() {
 
-        //Create File. Probably to be deleted later.
         try {
 
             File competitiveResults = new File("competitiveResults.txt");
