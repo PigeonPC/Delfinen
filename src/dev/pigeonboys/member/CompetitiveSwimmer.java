@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,9 +21,17 @@ public class CompetitiveSwimmer extends Member {
         Trainer traener = new Trainer("");
         CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
 
-        swimmer.loadResults(swimmer.getCompetitionResults());
-        swimmer.updateCompetitiveResults();
 
+        swimmer.loadResults(swimmer.getCompetitionResults());
+        sortTime(swimmer);
+        //swimmer.updateCompetitiveResults();
+        swimmer.viewCompetitiveResults();
+
+    }
+
+    public static void sortTime(CompetitiveSwimmer swimmer) {
+
+        swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
     }
 
     private List<CompetitionResult> getCompetitionResults() {
@@ -37,8 +46,8 @@ public class CompetitiveSwimmer extends Member {
         trainingResults = new ArrayList<>();
 
         //Delete
-        competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
-        competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
+        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
+        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
 
     }
 
@@ -153,9 +162,18 @@ public class CompetitiveSwimmer extends Member {
 
     }
 
-    public void viewCompetitiveResults(Scanner scanner) {
+    public void viewCompetitiveResults() {
 
         //Mangler comparator.
+
+        CompetitionResult competitionResult = new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000");
+
+
+
+        for(int i = 0; i < 5; i++) {
+            if(competitionResult.getDiscipline() == SwimmingDisciplines.CRAWL)
+            System.out.println(competitionResults.get(i).getTime());
+        }
 
     }
 
