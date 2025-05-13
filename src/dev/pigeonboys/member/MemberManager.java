@@ -13,6 +13,7 @@ public class MemberManager {
     public MemberManager() {
         fileHandler = new FileHandler();
         members = fileHandler.loadMembers();
+
     }
 
     public static List<Member> getMembers() {

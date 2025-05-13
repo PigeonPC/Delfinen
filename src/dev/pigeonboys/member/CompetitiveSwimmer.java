@@ -18,6 +18,8 @@ public class CompetitiveSwimmer extends Member {
 
     public static void main(String[] args) {
 
+        Scanner scanner = new Scanner(System.in);
+
         Trainer traener = new Trainer("");
         CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
 
@@ -25,13 +27,14 @@ public class CompetitiveSwimmer extends Member {
         swimmer.loadResults(swimmer.getCompetitionResults());
         sortTime(swimmer);
         //swimmer.updateCompetitiveResults();
-        swimmer.viewCompetitiveResults();
+        swimmer.viewCompetitiveResults(scanner);
 
     }
 
     public static void sortTime(CompetitiveSwimmer swimmer) {
 
         swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
+
     }
 
     private List<CompetitionResult> getCompetitionResults() {
@@ -162,17 +165,71 @@ public class CompetitiveSwimmer extends Member {
 
     }
 
-    public void viewCompetitiveResults() {
+    public void viewCompetitiveResults(Scanner scanner) {
 
         //Mangler comparator.
 
-        CompetitionResult competitionResult = new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000");
+        MemberManager mm = new MemberManager();
 
+        int counter = 0;
+        int spaceCounter = 0;
 
+        System.out.println("1. Butterfly");
+        System.out.println("2. Crawl");
+        System.out.println("3. Rygcrawl");
+        System.out.println("4. Brystsvømning");
 
-        for(int i = 0; i < 5; i++) {
-            if(competitionResult.getDiscipline() == SwimmingDisciplines.CRAWL)
-            System.out.println(competitionResults.get(i).getTime());
+        System.out.println("Pick a discipline");
+
+        int disciplineChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        SwimmingDisciplines discipline = null;
+
+        switch(disciplineChoice) {
+            case 1:
+                discipline = SwimmingDisciplines.BUTTERFLY;
+                break;
+            case 2:
+                discipline = SwimmingDisciplines.CRAWL;
+                break;
+            case 3:
+                discipline = SwimmingDisciplines.RYGCRAWL;
+            case 4:
+                discipline = SwimmingDisciplines.BRYSTSVOEMNING;
+                break;
+            default:
+                System.out.println("Not a discipline.");
+
+        }
+
+        System.out.println("Name                ID        Discipline          Time      Competition         Date");
+
+        for(CompetitionResult cr : competitionResults) {
+
+            if(cr.getDiscipline() == discipline) {
+
+                for(Member s : MemberManager.getMembers()) {
+                    if(cr.getID() == s.getId()) {
+                        System.out.print(s.getName());
+                        while(s.getName().length() + spaceCounter < 20) {
+                            System.out.print(" ");
+                            spaceCounter++;
+                        }
+                        System.out.println(cr);
+                        spaceCounter = 0;
+                        counter++;
+
+                        }
+
+                }
+
+                if (counter == 5) {
+                    break;
+                }
+
+            }
+
         }
 
     }
