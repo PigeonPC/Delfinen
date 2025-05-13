@@ -134,8 +134,7 @@ public class UI {
 
             System.out.println("\nForetag et valg:");
             System.out.println("1. Tilføj resultater");
-            System.out.println("2. Opdater resultater");
-            System.out.println("3. Se tidligere resultater");
+            System.out.println("2. Se tidligere resultater");
             System.out.println("0. Exit");
 
             try {
@@ -148,11 +147,9 @@ public class UI {
                         break;
                     case 1:
                         cs.addCompetitionResult(scanner);
-                        break;
-                    case 2:
                         cs.updateCompetitiveResults();
                         break;
-                    case 3:
+                    case 2:
                         cs.viewCompetitiveResults(scanner);
                         break;
                 }
