@@ -90,6 +90,8 @@ public class CompetitiveSwimmer extends Member {
 
         CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
 
+        boolean alreadyExists = false;
+
         for (int i = 0; i < competitionResults.size(); i++) {
 
             if (competitionResults.get(i).getID() == ID) {
@@ -98,36 +100,26 @@ public class CompetitiveSwimmer extends Member {
 
                         competitionResults.set(i, competitionResult);
                         System.out.println("New Best Time in " + discipline + ". Old result was overwritten.");
+                        alreadyExists = true;
+                        break;
 
                     }
                     else{
                         System.out.println("Result was not better than the best result.");
+                        alreadyExists = true;
                     }
-                } else {
-                    competitionResults.add(competitionResult);
-                    System.out.println("New Best Time in " + discipline);
                 }
             }
 
+        }
+        if(!alreadyExists) {
+            competitionResults.add(competitionResult);
+            System.out.println("New Best Time in " + discipline);
         }
 
     }
 
     public void updateCompetitiveResults() {
-
-        try {
-
-            File competitiveResults = new File("competitiveResults.txt");
-            if (competitiveResults.createNewFile()) {
-                System.out.println("New file was created.");
-            } else {
-                System.out.println("File already exists.");
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
 
         try {
             FileWriter myWriter = new FileWriter("competitiveResults.txt");
