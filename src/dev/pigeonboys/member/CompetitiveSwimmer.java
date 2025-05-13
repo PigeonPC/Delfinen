@@ -24,14 +24,16 @@ public class CompetitiveSwimmer extends Member {
         cs.addCompetitionResult(scanner);
     }
 
-    public static void sortTime(CompetitiveSwimmer swimmer) {
 
-        swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
-
-    }
 
     private List<CompetitionResult> getCompetitionResults() {
         return competitionResults;
+    }
+
+    public static void sortTime(List<CompetitionResult> competitionResults) {
+
+        competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
+
     }
 
     public CompetitiveSwimmer(int id, String name, int age, String address, boolean hasPaid, boolean active, Trainer trainer) {
@@ -167,7 +169,7 @@ public class CompetitiveSwimmer extends Member {
 
                 competitionResults.add(new CompetitionResult(id, time, disciplin, competitionName, date));
             }
-            System.out.println("Loaded " + competitionResults.size() + " competition results from file.");
+            //System.out.println("Loaded " + competitionResults.size() + " competition results from file.");
             return competitionResults;
         }catch(FileNotFoundException e){
             System.out.println("An error occurred.");
@@ -179,6 +181,10 @@ public class CompetitiveSwimmer extends Member {
     public void viewCompetitiveResults(Scanner scanner) {
 
         MemberManager mm = new MemberManager();
+        Trainer trainer = new Trainer("");
+        CompetitiveSwimmer cs = new CompetitiveSwimmer(1, "", 2, "", false, false, trainer);
+
+        sortTime(competitionResults);
 
         int counter = 0;
         int spaceCounter = 0;
