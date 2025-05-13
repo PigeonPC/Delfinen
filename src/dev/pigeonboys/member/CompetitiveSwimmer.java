@@ -15,21 +15,6 @@ public class CompetitiveSwimmer extends Member {
     List<CompetitionResult> competitionResults;
     List<TrainingResult> trainingResults;
 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        Trainer traener = new Trainer("");
-        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
-
-
-        swimmer.loadResults(swimmer.getCompetitionResults());
-        sortTime(swimmer);
-        //swimmer.updateCompetitiveResults();
-        swimmer.viewCompetitiveResults(scanner);
-
-    }
-
     public static void sortTime(CompetitiveSwimmer swimmer) {
 
         swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
@@ -44,7 +29,7 @@ public class CompetitiveSwimmer extends Member {
 
         super(id, name, age, address, hasPaid, active);
         this.trainer = trainer;
-        competitionResults = new ArrayList<>();
+        competitionResults = loadResults();
         trainingResults = new ArrayList<>();
 
         //Delete
@@ -134,8 +119,8 @@ public class CompetitiveSwimmer extends Member {
 
     }
 
-    public void loadResults(List<CompetitionResult> competitiveResults) {
-
+    public List<CompetitionResult> loadResults() {
+        List<CompetitionResult> competitionResults = new ArrayList<>();
         try {
             File results = new File("competitiveResults.txt");
             Scanner myReader = new Scanner(results);
@@ -155,13 +140,13 @@ public class CompetitiveSwimmer extends Member {
 
                 competitionResults.add(new CompetitionResult(id, time, disciplin, competitionName, date));
             }
-
+            System.out.println("Loaded " + competitionResults.size() + " competition results from file.");
+            return competitionResults;
         }catch(FileNotFoundException e){
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return competitionResults;
         }
-
-
     }
 
     public void viewCompetitiveResults(Scanner scanner) {

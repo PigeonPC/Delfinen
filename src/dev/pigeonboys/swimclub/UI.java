@@ -5,6 +5,7 @@ import dev.pigeonboys.member.Member;
 import dev.pigeonboys.member.MemberManager;
 import dev.pigeonboys.member.Trainer;
 
+import java.lang.classfile.attribute.SourceDebugExtensionAttribute;
 import java.util.Scanner;
 
 import static dev.pigeonboys.member.MemberManager.addNewMember;
@@ -17,7 +18,6 @@ public class UI {
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
-
 
     public static void getUserInput(Scanner scanner) {
 
@@ -114,9 +114,9 @@ public class UI {
                     //2. delete member
                     MemberManager.deleteMember(scanner);
                     break;
-                default :
-
-
+                default:
+                    System.out.println("Please choose a valid option");
+                    break;
             }
 
 
@@ -125,29 +125,36 @@ public class UI {
     }
 
     public static void traener(Scanner scanner){
-
+        Trainer trainer = new Trainer("");
+        CompetitiveSwimmer cs = new CompetitiveSwimmer(0,"",0,"",false,false,trainer);
 
         boolean toContinue = false;
-
-        Trainer traener = new Trainer("");
-        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
 
         while(!toContinue) {
 
             System.out.println("\nForetag et valg:");
-            System.out.println("1. Tildel discipliner");
+            System.out.println("1. Tilføj resultater");
+            System.out.println("2. Opdater resultater");
+            System.out.println("3. Se tidligere resultater");
+            System.out.println("0. Exit");
 
             try {
 
                 int choice = scanner.nextInt();
 
                 switch(choice) {
-                    case 1:
-
+                    case 0:
                         toContinue = true;
                         break;
-                    default:
-                        System.out.println("Invalid input");
+                    case 1:
+                        cs.addCompetitionResult(scanner);
+                        break;
+                    case 2:
+                        cs.updateCompetitiveResults();
+                        break;
+                    case 3:
+                        cs.viewCompetitiveResults(scanner);
+                        break;
                 }
 
             } catch (Exception e) {
@@ -173,6 +180,7 @@ public class UI {
             System.out.println("\nForetag et valg:");
             System.out.println("1. Vis forventet indtægt fra kontingenter.");
             System.out.println("2. Vis medlemmer i restance.");
+            System.out.println("0. Exit");
 
             try {
 
@@ -180,19 +188,21 @@ public class UI {
                 scanner.nextLine();
 
                 switch(choice) {
+                    case 0:
+                        toContinue = true;
+                        break;
                     case 1:
                         System.out.println(member.calculateTotalFee(mm.getMembers()));
-                        toContinue = true;
                         break;
                     case 2:
 
                         for(Member m : fm.getUnpaidMembers()) {
                             System.out.println(m);
                         }
-                        toContinue = true;
                         break;
                     default:
                         System.out.println("Invalid input");
+                        break;
                 }
 
             } catch (Exception e) {
