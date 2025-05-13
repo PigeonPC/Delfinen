@@ -93,10 +93,12 @@ public class CompetitiveSwimmer extends Member {
         CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
 
         boolean alreadyExists = false;
+        boolean memberIdExists = false;
 
         for (int i = 0; i < competitionResults.size(); i++) {
 
             if (competitionResults.get(i).getID() == ID) {
+                memberIdExists = true;
                 if (competitionResults.get(i).getDiscipline() == discipline) {
                     if (competitionResults.get(i).getTime() > time) {
 
@@ -114,9 +116,12 @@ public class CompetitiveSwimmer extends Member {
             }
 
         }
-        if(!alreadyExists) {
+        if(!alreadyExists && memberIdExists) {
             competitionResults.add(competitionResult);
             System.out.println("New Best Time in " + discipline);
+        }
+        if(!memberIdExists) {
+            System.out.println("No member with this ID exists.");
         }
 
     }
