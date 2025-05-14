@@ -13,6 +13,7 @@ public class MemberManager {
     public MemberManager() {
         fileHandler = new FileHandler();
         members = fileHandler.loadMembers();
+
     }
 
     public static List<Member> getMembers() {
@@ -128,7 +129,7 @@ public class MemberManager {
                 if(paymentStatus == 1 || paymentStatus == 2) {
                     proceed = true;
 
-                    if(paymentStatus == 1) {
+                    if(paymentStatus == 2) {
                         hasPaid = false;
                     }
 

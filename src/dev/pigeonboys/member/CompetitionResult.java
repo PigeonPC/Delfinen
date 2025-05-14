@@ -35,4 +35,42 @@ public class CompetitionResult {
     public String getDate() {
         return date;
     }
+
+    public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        Trainer traener = new Trainer("");
+        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
+
+            sb.append(id);
+
+            while (sb.length() < 10) {
+                sb.append(" ");
+            }
+
+            sb.append(discipline);
+
+            while (sb.length() < 30) {
+                sb.append(" ");
+            }
+
+            sb.append(time);
+
+            while (sb.length() < 40) {
+                sb.append(" ");
+            }
+
+            sb.append(competitionName);
+
+            while (sb.length() < 60) {
+                sb.append(" ");
+            }
+
+            sb.append(date);
+
+            return sb.toString();
+
+        }
+
 }

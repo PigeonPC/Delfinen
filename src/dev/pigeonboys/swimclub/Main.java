@@ -7,10 +7,12 @@ import java.util.Scanner;
 public class Main {
     MemberManager mm;
     Scanner scanner;
+    UI ui;
 
     public Main() {
         mm = new MemberManager();
         scanner = new Scanner(System.in);
+        ui = new UI();
     }
 
     public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class Main {
     }
 
     public void run() {
-        UI.getUserInput(scanner);
+        ui.getUserInput(scanner);
 
     }
 

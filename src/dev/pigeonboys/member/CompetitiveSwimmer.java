@@ -11,43 +11,37 @@ import java.util.Scanner;
 
 public class CompetitiveSwimmer extends Member {
 
-
     Trainer trainer;
     List<CompetitionResult> competitionResults;
     List<TrainingResult> trainingResults;
 
     public static void main(String[] args) {
 
-        Trainer traener = new Trainer("");
-        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
+        Trainer trainer = new Trainer("");
+        CompetitiveSwimmer cs = new CompetitiveSwimmer(1, "", 2, "", false, false, trainer);
 
-
-        swimmer.loadResults(swimmer.getCompetitionResults());
-        sortTime(swimmer);
-        //swimmer.updateCompetitiveResults();
-        swimmer.viewCompetitiveResults();
-
+        Scanner scanner = new Scanner(System.in);
+        cs.addCompetitionResult(scanner);
     }
 
-    public static void sortTime(CompetitiveSwimmer swimmer) {
 
-        swimmer.competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
-    }
 
     private List<CompetitionResult> getCompetitionResults() {
         return competitionResults;
+    }
+
+    public static void sortTime(List<CompetitionResult> competitionResults) {
+
+        competitionResults.sort(Comparator.comparingDouble(CompetitionResult::getTime));
+
     }
 
     public CompetitiveSwimmer(int id, String name, int age, String address, boolean hasPaid, boolean active, Trainer trainer) {
 
         super(id, name, age, address, hasPaid, active);
         this.trainer = trainer;
-        competitionResults = new ArrayList<>();
+        competitionResults = loadResults();
         trainingResults = new ArrayList<>();
-
-        //Delete
-        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
-        //competitionResults.add(new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000"));
 
     }
 
@@ -58,8 +52,33 @@ public class CompetitiveSwimmer extends Member {
         int ID = scanner.nextInt();
         scanner.nextLine();
 
-        //System.out.println("Please enter the discipline of swimmer.");
-        SwimmingDisciplines discipline = SwimmingDisciplines.CRAWL;
+        System.out.println("1. Butterfly");
+        System.out.println("2. Crawl");
+        System.out.println("3. Rygcrawl");
+        System.out.println("4. Brystsvømning");
+        System.out.println();
+        System.out.println("Pick a discipline");
+
+        int pickDisciplin = scanner.nextInt();
+        scanner.nextLine();
+        SwimmingDisciplines discipline = null;
+
+        switch(pickDisciplin) {
+            case 1:
+                discipline = SwimmingDisciplines.BUTTERFLY;
+                break;
+            case 2:
+                discipline = SwimmingDisciplines.CRAWL;
+                break;
+            case 3:
+                discipline = SwimmingDisciplines.RYGCRAWL;
+                break;
+            case 4:
+                discipline = SwimmingDisciplines.BRYSTSVOEMNING;
+                break;
+            default:
+                System.out.println("Not a disciplin.");
+        }
 
         System.out.println("Please enter the date.");
         String date = scanner.nextLine();
@@ -73,39 +92,41 @@ public class CompetitiveSwimmer extends Member {
 
         CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
 
-        for (CompetitionResult result : competitionResults) {
-            if (result.getID() == ID) {
-                if (result.getDiscipline() == discipline) {
-                    if (result.getTime() > time) {
-                        competitionResults.remove(result);
-                        competitionResults.add(competitionResult);
-                        System.out.println("New Best Time in " + discipline);
+        boolean alreadyExists = false;
+        boolean memberIdExists = false;
+
+        for (int i = 0; i < competitionResults.size(); i++) {
+
+            if (competitionResults.get(i).getID() == ID) {
+                memberIdExists = true;
+                if (competitionResults.get(i).getDiscipline() == discipline) {
+                    if (competitionResults.get(i).getTime() > time) {
+
+                        competitionResults.set(i, competitionResult);
+                        System.out.println("New Best Time in " + discipline + ". Old result was overwritten.");
+                        alreadyExists = true;
+                        break;
+
                     }
-                } else if (result.getDiscipline() == null) {
-                    competitionResults.add(competitionResult);
-                    System.out.println("New Best Time in " + discipline);
+                    else{
+                        System.out.println("Result was not better than the best result.");
+                        alreadyExists = true;
+                    }
                 }
             }
+
+        }
+        if(!alreadyExists && memberIdExists) {
+            competitionResults.add(competitionResult);
+            System.out.println("New Best Time in " + discipline);
+        }
+        if(!memberIdExists) {
+            System.out.println("No member with this ID exists.");
         }
 
     }
 
     public void updateCompetitiveResults() {
-
-        //Create File. Probably to be deleted later.
-        try {
-
-            File competitiveResults = new File("competitiveResults.txt");
-            if (competitiveResults.createNewFile()) {
-                System.out.println("New file was created.");
-            } else {
-                System.out.println("File already exists.");
-            }
-
-        } catch (IOException e) {
-            System.out.println("An error occured.");
-            e.printStackTrace();
-        }
 
         try {
             FileWriter myWriter = new FileWriter("competitiveResults.txt");
@@ -132,8 +153,8 @@ public class CompetitiveSwimmer extends Member {
 
     }
 
-    public void loadResults(List<CompetitionResult> competitiveResults) {
-
+    public List<CompetitionResult> loadResults() {
+        List<CompetitionResult> competitionResults = new ArrayList<>();
         try {
             File results = new File("competitiveResults.txt");
             Scanner myReader = new Scanner(results);
@@ -153,26 +174,106 @@ public class CompetitiveSwimmer extends Member {
 
                 competitionResults.add(new CompetitionResult(id, time, disciplin, competitionName, date));
             }
-
+            //System.out.println("Loaded " + competitionResults.size() + " competition results from file.");
+            return competitionResults;
         }catch(FileNotFoundException e){
             System.out.println("An error occurred.");
             e.printStackTrace();
+            return competitionResults;
         }
-
-
     }
 
-    public void viewCompetitiveResults() {
+    public void viewCompetitiveResults(Scanner scanner) {
 
-        //Mangler comparator.
+        MemberManager mm = new MemberManager();
+        Trainer trainer = new Trainer("");
+        CompetitiveSwimmer cs = new CompetitiveSwimmer(1, "", 2, "", false, false, trainer);
 
-        CompetitionResult competitionResult = new CompetitionResult(1, 2.23, SwimmingDisciplines.CRAWL, "C", "22.12.2000");
+        sortTime(competitionResults);
+
+        int counter = 0;
+        int spaceCounter = 0;
+
+        System.out.println("1. Junior");
+        System.out.println("2. Senior");
+        System.out.println();
+        System.out.println("Pick an age group");
+
+        int ageGroupChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        MembershipTypes ageGroup = null;
+
+        switch(ageGroupChoice) {
+            case 1:
+                ageGroup = MembershipTypes.JUNIOR;
+                break;
+            case 2:
+                ageGroup = MembershipTypes.SENIOR;
+                break;
+            default:
+                System.out.println("Not an age group.");
 
 
+        }
 
-        for(int i = 0; i < 5; i++) {
-            if(competitionResult.getDiscipline() == SwimmingDisciplines.CRAWL)
-            System.out.println(competitionResults.get(i).getTime());
+        System.out.println("1. Butterfly");
+        System.out.println("2. Crawl");
+        System.out.println("3. Rygcrawl");
+        System.out.println("4. Brystsvømning");
+        System.out.println();
+        System.out.println("Pick a discipline");
+
+        int disciplineChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        SwimmingDisciplines discipline = null;
+
+        switch(disciplineChoice) {
+            case 1:
+                discipline = SwimmingDisciplines.BUTTERFLY;
+                break;
+            case 2:
+                discipline = SwimmingDisciplines.CRAWL;
+                break;
+            case 3:
+                discipline = SwimmingDisciplines.RYGCRAWL;
+                break;
+            case 4:
+                discipline = SwimmingDisciplines.BRYSTSVOEMNING;
+                break;
+            default:
+                System.out.println("Not a discipline.");
+
+        }
+
+        System.out.println("Name                ID        Discipline          Time      Competition         Date");
+
+        for(CompetitionResult cr : competitionResults) {
+
+            if(cr.getDiscipline() == discipline) {
+
+                for(Member s : MemberManager.getMembers()) {
+                    if(cr.getID() == s.getId() && s.getMembershipType() == ageGroup) {
+                        System.out.print(s.getName());
+                        while(s.getName().length() + spaceCounter < 20) {
+                            System.out.print(" ");
+                            spaceCounter++;
+                        }
+                        System.out.println(cr);
+                        spaceCounter = 0;
+                        counter++;
+
+                        }
+
+                }
+
+                if (counter == 5) {
+                    break;
+                }
+
+            }
+
         }
 
     }
