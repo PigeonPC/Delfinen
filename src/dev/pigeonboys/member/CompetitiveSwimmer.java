@@ -15,17 +15,6 @@ public class CompetitiveSwimmer extends Member {
     List<CompetitionResult> competitionResults;
     List<TrainingResult> trainingResults;
 
-    public static void main(String[] args) {
-
-        Trainer trainer = new Trainer("");
-        CompetitiveSwimmer cs = new CompetitiveSwimmer(1, "", 2, "", false, false, trainer);
-
-        Scanner scanner = new Scanner(System.in);
-        cs.addCompetitionResult(scanner);
-    }
-
-
-
     private List<CompetitionResult> getCompetitionResults() {
         return competitionResults;
     }
@@ -263,7 +252,6 @@ public class CompetitiveSwimmer extends Member {
         for(CompetitionResult cr : competitionResults) {
 
             if(cr.getDiscipline() == discipline) {
-
                 for(Member s : MemberManager.getMembers()) {
                     if(cr.getID() == s.getId() && s.getMembershipType() == ageGroup) {
                         System.out.print(s.getName());

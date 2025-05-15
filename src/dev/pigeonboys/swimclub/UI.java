@@ -51,11 +51,9 @@ public class UI {
         System.out.println("BRUGER MENU:\n----------");
         System.out.println("1." + ANSI_BLUE + "\"Formand\"" + ANSI_RESET);
         System.out.println("2." + ANSI_BLUE + "\"Træner\"" + ANSI_RESET);
-        System.out.println("3." + ANSI_BLUE + "\"Kasér\"" + ANSI_RESET);
-
+        System.out.println("3." + ANSI_BLUE + "\"Kasserer\"" + ANSI_RESET);
 
     }
-
 
     public static void handleChoice(int choice, Scanner scanner) {
         switch (choice) {
