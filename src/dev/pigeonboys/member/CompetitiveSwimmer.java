@@ -101,7 +101,7 @@ public class CompetitiveSwimmer extends Member {
         boolean alreadyExists = false;
         for (int i = 0; i < competitionResults.size(); i++) {
 
-            if(competitionResults.get(i).getID() == memberID) {
+            if (competitionResults.get(i).getID() == memberID) {
                 if (competitionResults.get(i).getDiscipline() == discipline) {
                     if (competitionResults.get(i).getTime() > time) {
 
@@ -176,7 +176,7 @@ public class CompetitiveSwimmer extends Member {
             }
             //System.out.println("Loaded " + competitionResults.size() + " competition results from file.");
             return competitionResults;
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
             return competitionResults;
@@ -202,14 +202,16 @@ public class CompetitiveSwimmer extends Member {
         int ageGroupChoice = scanner.nextInt();
         scanner.nextLine();
 
-        MembershipTypes ageGroup = null;
+        MembershipTypes ageGroup1 = null;
+        MembershipTypes ageGroup2 = null;
 
-        switch(ageGroupChoice) {
+        switch (ageGroupChoice) {
             case 1:
-                ageGroup = MembershipTypes.JUNIOR;
+                ageGroup1 = MembershipTypes.JUNIOR;
                 break;
             case 2:
-                ageGroup = MembershipTypes.SENIOR;
+                ageGroup1 = MembershipTypes.SENIOR;
+                ageGroup2 = MembershipTypes.SUPERSENIOR;
                 break;
             default:
                 System.out.println("Not an age group.");
@@ -229,7 +231,7 @@ public class CompetitiveSwimmer extends Member {
 
         SwimmingDisciplines discipline = null;
 
-        switch(disciplineChoice) {
+        switch (disciplineChoice) {
             case 1:
                 discipline = SwimmingDisciplines.BUTTERFLY;
                 break;
@@ -249,13 +251,13 @@ public class CompetitiveSwimmer extends Member {
 
         System.out.println("Name                ID        Discipline          Time      Competition         Date");
 
-        for(CompetitionResult cr : competitionResults) {
+        for (CompetitionResult cr : competitionResults) {
 
-            if(cr.getDiscipline() == discipline) {
-                for(Member s : MemberManager.getMembers()) {
-                    if(cr.getID() == s.getId() && s.getMembershipType() == ageGroup) {
+            if (cr.getDiscipline() == discipline) {
+                for (Member s : MemberManager.getMembers()) {
+                    if (cr.getID() == s.getId() && (s.getMembershipType() == ageGroup1 || s.getMembershipType() == ageGroup2)) {
                         System.out.print(s.getName());
-                        while(s.getName().length() + spaceCounter < 20) {
+                        while (s.getName().length() + spaceCounter < 20) {
                             System.out.print(" ");
                             spaceCounter++;
                         }
@@ -263,7 +265,7 @@ public class CompetitiveSwimmer extends Member {
                         spaceCounter = 0;
                         counter++;
 
-                        }
+                    }
 
                 }
 
