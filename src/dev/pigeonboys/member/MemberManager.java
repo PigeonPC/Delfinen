@@ -50,7 +50,9 @@ public class MemberManager {
                             idInUSe = true;
                             System.out.println("ID in use. Please enter another.");
                         }
+                        return;
                     }
+
 
 
                 }while(idInUSe);
