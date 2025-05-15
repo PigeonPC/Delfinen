@@ -40,6 +40,7 @@ public class MemberManager {
             try {
 
                 do {
+                    idInUSe = false;
 
                     System.out.println("Please enter the ID of the new member.");
                     ID = scanner.nextInt();
@@ -50,7 +51,6 @@ public class MemberManager {
                             idInUSe = true;
                             System.out.println("ID in use. Please enter another.");
                         }
-                        return;
                     }
 
 
