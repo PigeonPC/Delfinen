@@ -33,13 +33,27 @@ public class MemberManager {
 
         boolean hasPaid = true;
         boolean isActive = true;
+        boolean idInUSe = false;
 
         while(!proceed) {
 
             try {
-                System.out.println("Please enter the ID of the new member.");
-                ID = scanner.nextInt();
-                scanner.nextLine();
+
+                do {
+
+                    System.out.println("Please enter the ID of the new member.");
+                    ID = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (Member member : members) {
+                        if (ID == member.getId()) {
+                            idInUSe = true;
+                            System.out.println("ID in use. Please enter another.");
+                        }
+                    }
+
+
+                }while(idInUSe);
 
                 if(ID > 0) {
                     proceed = true;
@@ -185,26 +199,36 @@ public class MemberManager {
     public static void editMember(Scanner scanner) {
 
         boolean proceed = false;
+        boolean memberExists = false;
 
         int memberID = 0;
 
-        while (!proceed) {
-
-            System.out.println("Please enter the ID of the member whose attributes you want to alter.");
-
             try {
+
+                do {
+
+                    System.out.println("Please enter the ID of the member whose attributes you want to alter.");
 
                 memberID = scanner.nextInt();
                 scanner.nextLine();
                 proceed = true;
 
+
+
+                    for(Member member : members) {
+                        if(member.getId() == memberID) {
+                            memberExists = true;
+                            break;
+                        }
+                    }
+
+                }while((!memberExists));
+
+
+
             } catch (Exception e) {
                 System.out.println("Invalid input.");
             }
-
-        }
-
-        proceed = false;
 
         for(Member s : members) {
             if(memberID == s.getId()) {
@@ -215,6 +239,8 @@ public class MemberManager {
         }
 
         int input = 0;
+
+        proceed = false;
 
         while(!proceed) {
 
@@ -439,10 +465,10 @@ public class MemberManager {
 
                     if (membershipStatus == 1) {
 
-                        if (s.getHasPaid()) {
+                        if (s.getActive()) {
                             s.setActive(false);
                             System.out.println("Member " + memberID + "'s membership status was changed to " + s.getActive() + ".");
-                        } else if (!s.getHasPaid()) {
+                        } else if (!s.getActive()) {
                             s.setActive(true);
                             System.out.println("Member " + memberID + "'s membership status was changed to " + s.getActive() + ".");
                         }

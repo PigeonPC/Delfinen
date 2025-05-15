@@ -76,7 +76,6 @@ public class UI {
 
         }
 
-
     }
 
     public static void formand(Scanner scanner) {

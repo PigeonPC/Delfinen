@@ -60,7 +60,7 @@ public class FileHandler {
                     System.err.println("Invalid member format found: " + line);
                 }
             }
-            System.out.println("Loaded " + memberList.size() + " members from file.");
+            //System.out.println("Loaded " + memberList.size() + " members from file.");
             return memberList;
         } catch(IOException e) {
             System.err.println("Error reading members file: " + e.getMessage());
