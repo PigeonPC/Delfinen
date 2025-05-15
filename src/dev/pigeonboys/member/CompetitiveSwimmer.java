@@ -47,10 +47,27 @@ public class CompetitiveSwimmer extends Member {
 
     public void addCompetitionResult(Scanner scanner) {
 
-        System.out.println("Please enter ID of swimmer.");
 
-        int ID = scanner.nextInt();
-        scanner.nextLine();
+        int memberID;
+        boolean memberExists;
+
+        do {
+
+            System.out.println("Please enter ID of swimmer.");
+
+            memberID = scanner.nextInt();
+            scanner.nextLine();
+
+            memberExists = false;
+
+            for (Member member : MemberManager.getMembers()) {
+                if (member.getId() == memberID) {
+                    memberExists = true;
+                    break;
+                }
+            }
+
+        } while ((!memberExists));
 
         System.out.println("1. Butterfly");
         System.out.println("2. Crawl");
@@ -63,7 +80,7 @@ public class CompetitiveSwimmer extends Member {
         scanner.nextLine();
         SwimmingDisciplines discipline = null;
 
-        switch(pickDisciplin) {
+        switch (pickDisciplin) {
             case 1:
                 discipline = SwimmingDisciplines.BUTTERFLY;
                 break;
@@ -90,38 +107,32 @@ public class CompetitiveSwimmer extends Member {
         double time = scanner.nextDouble();
         scanner.nextLine();
 
-        CompetitionResult competitionResult = new CompetitionResult(ID, time, discipline, competitionName, date);
+        CompetitionResult competitionResult = new CompetitionResult(memberID, time, discipline, competitionName, date);
 
         boolean alreadyExists = false;
-        boolean memberIdExists = false;
-
         for (int i = 0; i < competitionResults.size(); i++) {
 
-            if (competitionResults.get(i).getID() == ID) {
-                memberIdExists = true;
+            if(competitionResults.get(i).getID() == memberID) {
                 if (competitionResults.get(i).getDiscipline() == discipline) {
                     if (competitionResults.get(i).getTime() > time) {
 
                         competitionResults.set(i, competitionResult);
                         System.out.println("New Best Time in " + discipline + ". Old result was overwritten.");
-                        alreadyExists = true;
-                        break;
 
-                    }
-                    else{
+                    } else {
                         System.out.println("Result was not better than the best result.");
-                        alreadyExists = true;
                     }
+                    alreadyExists = true;
+                    break;
                 }
+
             }
 
         }
-        if(!alreadyExists && memberIdExists) {
+        if (!alreadyExists) {
             competitionResults.add(competitionResult);
+            System.out.println("There was no previous Best Time.");
             System.out.println("New Best Time in " + discipline);
-        }
-        if(!memberIdExists) {
-            System.out.println("No member with this ID exists.");
         }
 
     }

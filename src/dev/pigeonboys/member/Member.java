@@ -76,6 +76,7 @@ public class Member implements Pay{
         sb.append("Age: ").append(age).append("\n");
         sb.append("Address: ").append(address).append("\n");
         sb.append("Has paid: ").append(hasPaid).append("\n");
+        sb.append("Membership Type: ").append(membershipType).append("\n");
         return sb.toString();
     }
 
