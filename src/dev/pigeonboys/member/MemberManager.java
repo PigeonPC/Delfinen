@@ -1,5 +1,7 @@
 package dev.pigeonboys.member;
 
+import dev.pigeonboys.exceptions.FileOperationException;
+import dev.pigeonboys.exceptions.InvalidMemberDataException;
 import dev.pigeonboys.swimclub.FileHandler;
 
 import java.util.ArrayList;
@@ -11,8 +13,9 @@ public class MemberManager {
     static List<Member> members = new ArrayList<>();
 
     public MemberManager() {
-        fileHandler = new FileHandler();
-        members = fileHandler.loadMembers();
+        this.fileHandler = new FileHandler();
+        this.members = new ArrayList<>();
+        loadAllData();
 
     }
 
@@ -21,7 +24,7 @@ public class MemberManager {
     }
 
 
-    public static void addNewMember(Scanner scanner) {
+    public static void addNewMember(Scanner scanner) throws InvalidMemberDataException {
 
         boolean proceed = false;
 
@@ -194,7 +197,11 @@ public class MemberManager {
         Member member = new Member(ID, name, age, address, hasPaid, isActive);
 
         members.add(member);
-        fileHandler.saveMember(member);
+        try {
+            fileHandler.saveMember(member);
+        } catch(FileOperationException e) {
+            System.err.println("Fejl ved gem af medlemsdata: " + e.getMessage());
+        }
 
     }
 
@@ -302,7 +309,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s name was changed to " + newName + ".");
-                fileHandler.updateMembers(members);
+                saveAllData();
                 break;
 
             case 2:
@@ -340,7 +347,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s age was changed to " + newAge + ".");
-                fileHandler.updateMembers(members);
+                saveAllData();
                 break;
 
             case 3:
@@ -372,7 +379,7 @@ public class MemberManager {
                 }
 
                 System.out.println("Member " + memberID + "'s address was changed to " + newAddress + ".");
-                fileHandler.updateMembers(members);
+                saveAllData();
                 break;
 
             case 4:
@@ -425,7 +432,7 @@ public class MemberManager {
                     }
 
                 }
-                fileHandler.updateMembers(members);
+                saveAllData();
                 break;
 
             case 5:
@@ -478,7 +485,7 @@ public class MemberManager {
                 }
 
             }
-            fileHandler.updateMembers(members);
+            saveAllData();
 
             break;
             default:
@@ -515,11 +522,28 @@ public class MemberManager {
             if(s.getId() == ID) {
                 System.out.println(s.getName() + " was deleted.");
                 members.remove(s);
-                fileHandler.updateMembers(members);
+                saveAllData();
                 break;
             }
         }
 
+    }
+
+    public static void saveAllData() {
+        try {
+            fileHandler.updateMembers(members);
+        } catch (FileOperationException e) {
+            System.err.println("Fejl ved gem af medlemsdata: " + e.getMessage());
+        }
+    }
+
+    public static void loadAllData() {
+        try {
+            members = fileHandler.loadMembers();
+        } catch (FileOperationException e) {
+            System.err.println("Fejl ved indlæsning af medlemsdata: " + e.getMessage());
+            members = new ArrayList<>();
+        }
     }
 
 }

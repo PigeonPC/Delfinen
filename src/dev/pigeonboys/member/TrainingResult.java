@@ -14,4 +14,7 @@ public class TrainingResult {
         this.date = date;
     }
 
+    public double getTime() {
+        return time;
+    }
 }
