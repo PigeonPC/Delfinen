@@ -112,23 +112,26 @@ public class CompetitiveSwimmer extends Member {
         boolean alreadyExists = false;
         for (int i = 0; i < competitionResults.size(); i++) {
 
+            if(competitionResults.get(i).getID() == memberID) {
                 if (competitionResults.get(i).getDiscipline() == discipline) {
                     if (competitionResults.get(i).getTime() > time) {
 
                         competitionResults.set(i, competitionResult);
                         System.out.println("New Best Time in " + discipline + ". Old result was overwritten.");
-                        alreadyExists = true;
-                        break;
 
                     } else {
                         System.out.println("Result was not better than the best result.");
-                        alreadyExists = true;
                     }
+                    alreadyExists = true;
+                    break;
                 }
+
+            }
 
         }
         if (!alreadyExists) {
             competitionResults.add(competitionResult);
+            System.out.println("There was no previous Best Time.");
             System.out.println("New Best Time in " + discipline);
         }
 
