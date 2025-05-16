@@ -17,4 +17,17 @@ public class TrainingResult {
     public double getTime() {
         return time;
     }
+
+    public int getID() {
+        return id;
+    }
+
+    public SwimmingDisciplines getDiscipline() {
+        return discipline;
+    }
+
+
+    public String getDate() {
+        return date;
+    }
 }
