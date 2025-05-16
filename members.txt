@@ -1,3 +1,20 @@
-1|Sofus W|24|Guldbergsgade 93|true|true
-2|Henning|69|Guldbergsgade 93|true|true
-3|Jonathan|5|Guldbergsgade 93|false|true
+1|Sofus W|24|Guldbergsgade 93|true|false
+2|Henning|69|Næstvedstreet 93|false|true
+3|Mads M|31|Vesterbrogade 42|true|false
+4|Lars L|45|Rosenborggade 78|false|true
+5|Kasper K|25|Søndergade 12|true|false
+6|Sander S|38|Østerbrogade 65|false|true
+7|Mikkel M|22|Nørregade 87|true|false
+8|Mathias M|40|Vesterhavsgade 32|false|true
+9|Christian C|29|Rådhusgade 56|true|false
+10|Lukas L|19|Gammelgade 23|true|false
+11|Julius J|33|Nyhavn 14|false|true
+12|Niels N|47|Kongensgade 89|false|true
+13|Ole O|26|Langeliniegade 42|true|false
+14|Søren S|41|Vesterbrogade 11|false|true
+15|Anders A|28|Nørregade 85|true|false
+16|Mogens M|32|Kongensgade 74|false|true
+17|Frederik F|20|Gammelgade 19|true|false
+18|Larsen L|46|Rosenborggade 91|false|true
+19|Casper C|27|Østerbrogade 39|true|false
+20|Mads M|35|Vesterhavsgade 29|false|true

@@ -84,6 +84,9 @@ public class MemberManager {
         int memberID = 0;
 
         do {
+            for(Member member : members) {
+                System.out.println(member);
+            }
 
             System.out.println("Please enter the ID of the member whose attributes you want to change");
 

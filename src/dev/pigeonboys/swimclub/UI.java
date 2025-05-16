@@ -25,10 +25,10 @@ public class UI {
         int s;
 
         while (true) {
-            System.out.print(ANSI_GREEN + "Indtast et tal fra 1-3: " + ANSI_RESET);
+            System.out.print(ANSI_GREEN + "Indtast et tal fra 0-3: " + ANSI_RESET);
             if (scanner.hasNextInt()) {
                 s = scanner.nextInt();
-                if (s >= 1 && s <= 3) {
+                if (s >= 0 && s <= 3) {
                     break;
 
                 } else {
@@ -52,11 +52,15 @@ public class UI {
         System.out.println("1." + ANSI_BLUE + "\"Formand\"" + ANSI_RESET);
         System.out.println("2." + ANSI_BLUE + "\"Træner\"" + ANSI_RESET);
         System.out.println("3." + ANSI_BLUE + "\"Kasserer\"" + ANSI_RESET);
+        System.out.println("0." + ANSI_BLUE + "\"Exit\"" + ANSI_RESET);
+
 
     }
 
     public static void handleChoice(int choice, Scanner scanner) {
         switch (choice) {
+            case 0:
+                break;
             case 1:
                 formand(scanner);
                 break;
@@ -71,7 +75,7 @@ public class UI {
 
             default:
                 System.out.println("Invalid choice!");
-
+                break;
         }
 
     }
@@ -86,7 +90,7 @@ public class UI {
             System.out.println("1. Tilføj nyt medlem");
             System.out.println("2. Rediger medlem");
             System.out.println("3. Slet medlem");
-            System.out.println("0. Exit");
+            System.out.println("0. Return");
 
             int choice = scanner.nextInt();
 
@@ -94,6 +98,7 @@ public class UI {
                 case 0:
                     //0. Exit
                     exitApp = true;
+                    getUserInput(scanner);
                     break;
 
                 case 1:
@@ -132,7 +137,7 @@ public class UI {
             System.out.println("\nForetag et valg:");
             System.out.println("1. Tilføj resultater");
             System.out.println("2. Se tidligere resultater");
-            System.out.println("0. Exit");
+            System.out.println("0. Return");
 
             try {
 
@@ -141,6 +146,7 @@ public class UI {
                 switch(choice) {
                     case 0:
                         toContinue = true;
+                        getUserInput(scanner);
                         break;
                     case 1:
                         cs.addCompetitionResult(scanner);
@@ -174,7 +180,7 @@ public class UI {
             System.out.println("\nForetag et valg:");
             System.out.println("1. Vis forventet indtægt fra kontingenter.");
             System.out.println("2. Vis medlemmer i restance.");
-            System.out.println("0. Exit");
+            System.out.println("0. Return");
 
             try {
 
@@ -184,6 +190,7 @@ public class UI {
                 switch(choice) {
                     case 0:
                         toContinue = true;
+                        getUserInput(scanner);
                         break;
                     case 1:
                         System.out.println(member.calculateTotalFee(mm.getMembers()));
