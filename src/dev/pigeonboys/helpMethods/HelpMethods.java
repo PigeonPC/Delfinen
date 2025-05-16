@@ -51,7 +51,7 @@ public class HelpMethods {
             } catch (Exception e) {
                 System.out.println("Invalid input. Please enter a valid integer.");
             }
-        }while(input == 1 || input == 2);
+        }while(!(input == 1 || input == 2));
         return true;
     }
 
