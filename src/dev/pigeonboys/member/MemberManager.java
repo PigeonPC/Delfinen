@@ -24,7 +24,6 @@ public class MemberManager {
         return members;
     }
 
-
     public static void addNewMember(Scanner scanner) throws InvalidMemberDataException {
 
         boolean memberIDAvailable = true;
