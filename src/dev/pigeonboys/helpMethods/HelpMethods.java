@@ -14,6 +14,7 @@ public class HelpMethods {
             try {
 
                 input = scanner.nextInt();
+                scanner.nextLine();
                 isValid = true;
 
             } catch (Exception e) {
@@ -35,6 +36,7 @@ public class HelpMethods {
             try {
 
                 input = scanner.nextInt();
+                scanner.nextLine();
 
                 if (input == 1) {
 

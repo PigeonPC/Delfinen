@@ -26,10 +26,12 @@ public class MemberManager {
 
     public static void addNewMember(Scanner scanner) throws InvalidMemberDataException {
 
-        boolean memberIDAvailable = true;
+        boolean memberIDAvailable;
         int memberID;
 
         do {
+
+            memberIDAvailable = true;
 
             System.out.println("Please enter member ID.");
             memberID = HelpMethods.validateInt(scanner);
@@ -40,6 +42,7 @@ public class MemberManager {
                     System.out.println("memberID not available. Please enter an available ID.");
                     break;
                 }
+
             }
 
         } while (!memberIDAvailable);
