@@ -42,7 +42,7 @@ public class MemberManager {
                 }
             }
 
-        } while (memberIDAvailable);
+        } while (!memberIDAvailable);
 
         System.out.println("Please enter name of member.");
         String name = scanner.nextLine();
