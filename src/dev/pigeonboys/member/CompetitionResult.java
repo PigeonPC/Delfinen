@@ -40,9 +40,6 @@ public class CompetitionResult {
 
         StringBuilder sb = new StringBuilder();
 
-        Trainer traener = new Trainer("");
-        CompetitiveSwimmer swimmer = new CompetitiveSwimmer(0, "", 0, "", false, false, traener);
-
             sb.append(id);
 
             while (sb.length() < 10) {
