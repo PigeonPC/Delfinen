@@ -28,7 +28,7 @@ public class UI {
             System.out.print(ANSI_GREEN + "Indtast et tal fra 0-3: " + ANSI_RESET);
             if (scanner.hasNextInt()) {
                 s = scanner.nextInt();
-                if (s >= 0 && s <= 3) {
+                if (s >= 0 && s <= 4) {
                     break;
 
                 } else {
@@ -135,8 +135,10 @@ public class UI {
         while(!toContinue) {
 
             System.out.println("\nForetag et valg:");
-            System.out.println("1. Tilføj resultater");
-            System.out.println("2. Se tidligere resultater");
+            System.out.println("1. Tilføj konkurrence resultater");
+            System.out.println("2. Se tidligere konkurrence resultater");
+            System.out.println("3. Tilføj trænings resultater");
+            System.out.println("4. Se tidliger trænings resultater");
             System.out.println("0. Return");
 
             try {
@@ -155,10 +157,19 @@ public class UI {
                     case 2:
                         cs.viewCompetitiveResults(scanner);
                         break;
+                    case 3:
+                        cs.addTrainingResult(scanner);
+                        cs.updateTrainingResults();
+                        break;
+                    case 4:
+                        cs.viewTrainingResults(scanner);
+                        break;
+                    default:
+                        break;
                 }
 
-            } catch (Exception e) {
-                System.out.println("Invalid input.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input." + e.getMessage());
                 scanner.nextLine();
             }
 

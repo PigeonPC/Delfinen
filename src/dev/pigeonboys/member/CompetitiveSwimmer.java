@@ -417,7 +417,7 @@ public class CompetitiveSwimmer extends Member {
                 int id = Integer.parseInt(split[0].trim());
                 SwimmingDisciplines disciplin = SwimmingDisciplines.valueOf(split[1].trim());
                 double time = Double.parseDouble(split[2].trim());
-                String date = split[4].trim();
+                String date = split[3].trim();
 
                 trainingResults.add(new TrainingResult(id, time, disciplin, date));
             }
